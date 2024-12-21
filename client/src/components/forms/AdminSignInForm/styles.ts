@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { FormattedForm } from '@/utils/styles/globals'
+import Fonts from '@/utils/styles/fonts'
 
 export const AdminSignInForm = styled(FormattedForm)`
   display: flex;
@@ -15,12 +16,11 @@ export const SignInFormFirstAccess = styled.div`
   align-items: center;
   column-gap: 8px;
   width: 100%;
+  margin: 5px 0;
 
   p {
-    padding-top: 1px;
-
-    font-size: 13px;
-    line-height: 13px;
+    font-size: ${Fonts.xs};
+    line-height: ${Fonts.xs};
     font-weight: 300;
   }
 `

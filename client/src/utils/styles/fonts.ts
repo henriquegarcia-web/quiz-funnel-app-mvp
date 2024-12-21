@@ -1,6 +1,6 @@
 const Fonts = {
-  xsss: '0.75rem',
-  xss: '0.813rem',
+  xxxs: '0.75rem',
+  xxs: '0.813rem',
   xs: '0.875rem',
   small: '0.938rem',
   regular: '1rem',

@@ -8,6 +8,7 @@ import {
   useAdminAuth
 } from '@/contexts/AdminAuthProvider.tsx'
 import { AdminProvider } from '@/contexts/AdminProvider.tsx'
+import { themeTokens } from '@/utils/styles/theme'
 
 function App() {
   return (
@@ -30,13 +31,17 @@ const AppThemed = () => {
       : theme.darkAlgorithm
   }, [adminAccountData])
 
+  const themeTokenSelected = useMemo(() => {
+    return adminAccountData?.theme === 'light'
+      ? themeTokens.light
+      : themeTokens.dark
+  }, [adminAccountData])
+
   return (
     <ConfigProvider
       theme={{
         algorithm: themeSelected,
-        token: {
-          colorPrimary: '#007BFF'
-        }
+        token: themeTokenSelected
       }}
     >
       <AppRoutes />

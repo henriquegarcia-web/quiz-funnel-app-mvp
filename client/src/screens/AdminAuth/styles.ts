@@ -6,23 +6,30 @@ export const AdminAuthScreen = styled(Screen)`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 25px;
 `
 
 export const AuthContainer = styled(Card)`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   row-gap: 10px;
   width: 100%;
-  max-width: 400px;
-  padding: 20px;
+  max-width: 340px;
+  padding: 25px;
+
+  .ant-card-body {
+    width: 100%;
+    padding: 0;
+  }
 `
 
 export const AuthContainerHeader = styled.div`
   position: absolute;
   bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-
-  border: 1px solid red;
+  justify-content: center;
+  margin-bottom: 20px;
 `

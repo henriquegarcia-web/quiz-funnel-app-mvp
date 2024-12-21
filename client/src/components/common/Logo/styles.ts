@@ -1,9 +1,26 @@
 import styled from 'styled-components'
 import { LogoSizeType } from '.'
+import Fonts from '@/utils/styles/fonts'
+
+const sizeStyles = {
+  sm: {
+    fontSize: Fonts.h3
+  },
+  md: {
+    fontSize: Fonts.h2
+  },
+  lg: {
+    fontSize: Fonts.h1
+  }
+}
 
 export const Logo = styled.h1<{ size: LogoSizeType }>`
-  display: flex;
+  font-family: 'Archivo', serif;
+  font-size: ${({ size }) => sizeStyles[size].fontSize};
+  font-weight: 300;
+  white-space: nowrap;
 
   b {
+    font-weight: 500;
   }
 `

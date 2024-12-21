@@ -1,5 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components'
-import { Form as AntdForm, Layout } from 'antd'
+import { Form as AntdForm, Layout, theme } from 'antd'
+
+import Fonts from './fonts'
 
 export const responsiveDesktop = '1000px'
 export const responsiveTablet = '760px'
@@ -27,11 +29,20 @@ const GlobalStyle = createGlobalStyle`
     /* font-family: "Baloo Paaji 2", sans-serif; */
     /* font-family: "Barlow", sans-serif; */
     /* font-family: "Open Sans", sans-serif; */
+    /* font-family: "Archivo", serif; */
     text-decoration: none;
     user-select: none;
 
     -webkit-tap-highlight-color: transparent !important;
   }
+
+  /* input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+    -webkit-text-fill-color: #000 !important;
+  } */
 
   scroll-behavior: smooth;
 
@@ -61,37 +72,54 @@ export const Screen = styled(Layout)`
   min-height: 100vh;
 `
 
-export const FormattedForm = styled(AntdForm)`
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  row-gap: 10px;
-  width: 100%; */
+const { useToken } = theme
 
+export const FormattedForm = styled(AntdForm)`
   .ant-form-item {
     width: 100%;
     margin-bottom: 0px;
 
     .ant-form-item-label {
-      padding-bottom: 5px;
+      padding-bottom: 5px !important;
 
       label {
         font-size: 12px;
       }
     }
 
+    .ant-input-password {
+      padding: 0 11px;
+      box-shadow: none !important;
+
+      .ant-input {
+        padding: 0;
+        height: 32.4px;
+      }
+    }
+
     .ant-input {
-      font-size: 14px;
+      font-size: ${Fonts.xs};
+      height: 34px;
+      padding: 0 11px 1px 11px;
+
+      &:focus {
+        box-shadow: none !important;
+      }
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px ${() => useToken().token.colorFill} inset !important;
+        -webkit-text-fill-color: ${() =>
+          useToken().token.colorTextBase} !important;
+      }
     }
 
     .ant-form-item-explain-error {
       margin-top: 5px;
 
-      font-size: 13px;
+      font-size: 12px;
     }
   }
-
-  /* button[type='submit'] {
-    margin-top: 10px;
-  } */
 `
