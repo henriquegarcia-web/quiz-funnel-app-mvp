@@ -1,10 +1,11 @@
 import styled from 'styled-components'
-import { theme } from 'antd'
+import { Typography, theme } from 'antd'
 
 import { LogoSizeType } from '.'
 import Fonts from '@/utils/styles/fonts'
 
 const { useToken } = theme
+const { Paragraph, Text, Link } = Typography
 
 const sizeStyles = {
   sm: {
@@ -18,7 +19,7 @@ const sizeStyles = {
   }
 }
 
-export const Logo = styled.h1<{ size: LogoSizeType }>`
+export const Logo = styled(Text)<{ size: LogoSizeType }>`
   font-family: 'Archivo', serif;
   font-size: ${({ size }) => sizeStyles[size].fontSize};
   font-weight: 300;
@@ -28,5 +29,5 @@ export const Logo = styled.h1<{ size: LogoSizeType }>`
     font-weight: 500;
   }
 
-  color: ${() => useToken().token.colorTextBase};
+  /* color: ${() => useToken().token.colorTextBase}; */
 `

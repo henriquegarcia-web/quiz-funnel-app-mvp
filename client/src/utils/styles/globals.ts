@@ -7,9 +7,9 @@ export const responsiveDesktop = '1000px'
 export const responsiveTablet = '760px'
 export const responsiveMobile = '500px'
 
-export const dashboardWrapper = '1000px'
+export const dashboardWrapper = '860px'
 
-export const dashboardHeaderHeight = '70px'
+export const dashboardHeaderHeight = '75px'
 export const editorV1HeaderHeight = '70px'
 
 const GlobalStyle = createGlobalStyle`
@@ -63,6 +63,8 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.4);
   }
+
+
 `
 
 export default GlobalStyle

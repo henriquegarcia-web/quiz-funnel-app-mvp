@@ -11,6 +11,7 @@ export const Header = styled.div`
   justify-content: center;
   width: 100%;
   height: ${dashboardHeaderHeight};
+  padding: 0 20px;
 
   background-color: ${() => useToken().token.colorBgElevated};
 `
