@@ -1,6 +1,10 @@
 import styled from 'styled-components'
+import { theme } from 'antd'
+
 import { LogoSizeType } from '.'
 import Fonts from '@/utils/styles/fonts'
+
+const { useToken } = theme
 
 const sizeStyles = {
   sm: {
@@ -23,4 +27,6 @@ export const Logo = styled.h1<{ size: LogoSizeType }>`
   b {
     font-weight: 500;
   }
+
+  color: ${() => useToken().token.colorTextBase};
 `

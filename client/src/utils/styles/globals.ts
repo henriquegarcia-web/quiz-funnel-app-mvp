@@ -7,7 +7,10 @@ export const responsiveDesktop = '1000px'
 export const responsiveTablet = '760px'
 export const responsiveMobile = '500px'
 
-export const clientHeaderHeight = '70px'
+export const dashboardWrapper = '1000px'
+
+export const dashboardHeaderHeight = '70px'
+export const editorV1HeaderHeight = '70px'
 
 const GlobalStyle = createGlobalStyle`
   :root {

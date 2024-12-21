@@ -151,7 +151,7 @@ const darkThemeTokens = {
   // colorFillQuaternary: '#595959',
   // colorBgBase: '#141414',
   colorBgContainer: '#23243c',
-  // colorBgElevated: '#262626',
+  colorBgElevated: '#252544',
   colorBgLayout: '#0f102b'
   // colorBgSpotlight: '#1F1F1F',
   // colorBorder: '#434343',

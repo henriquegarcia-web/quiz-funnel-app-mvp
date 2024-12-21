@@ -1,15 +1,16 @@
 import * as S from './styles'
 
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { DashboardHeader } from '@/components'
 
 interface IDashboardScreen {}
 
 const DashboardScreen = ({}: IDashboardScreen) => {
-  const { handleLogout } = useAdminAuth()
-
   return (
     <S.DashboardScreen>
-      <button onClick={handleLogout}>Sair</button>
+      <DashboardHeader />
+      <S.DashboardContent>
+        <S.DashboardWrapper></S.DashboardWrapper>
+      </S.DashboardContent>
     </S.DashboardScreen>
   )
 }
