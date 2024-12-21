@@ -1,8 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
-import { TemplateScreen } from '@/screens'
+import {
+  AdminAuthScreen,
+  DashboardScreen,
+  InsightsScreen,
+  EditorV1,
+  QuizV1
+} from '@/screens'
+import { useAdmin } from '@/contexts/AdminProvider'
 
 const AppRoutes = () => {
+  const { isAdminLogged } = useAdmin()
+
   return (
     <BrowserRouter
       future={{
@@ -13,12 +22,55 @@ const AppRoutes = () => {
       <Routes>
         {/* =============================================================== */}
 
-        <Route path="/" element={<Navigate to="/template" />} />
-        <Route path="*" element={<Navigate to="/template" />} />
+        <Route path="/" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/" />} />
 
         {/* =============================================================== */}
 
-        <Route path="/template" element={<TemplateScreen />} />
+        <Route
+          path="/"
+          element={
+            <PublicRoute isAuthenticated={isAdminLogged}>
+              <QuizV1 />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/admin/entrar"
+          element={
+            <PublicRoute isAuthenticated={isAdminLogged}>
+              <AdminAuthScreen />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute isAuthenticated={isAdminLogged}>
+              <DashboardScreen />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/insights/:funnelId"
+          element={
+            <PrivateRoute isAuthenticated={isAdminLogged}>
+              <InsightsScreen />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/editor/:funnelId"
+          element={
+            <PrivateRoute isAuthenticated={isAdminLogged}>
+              <EditorV1 />
+            </PrivateRoute>
+          }
+        />
 
         {/* =============================================================== */}
       </Routes>
@@ -30,23 +82,23 @@ export default AppRoutes
 
 // =========================================== ROUTES
 
-// interface RouteProps {
-//   isAuthenticated: boolean
-//   children: React.ReactNode
-// }
+interface RouteProps {
+  isAuthenticated: boolean
+  children: React.ReactNode
+}
 
-// const PrivateRoute = ({ isAuthenticated, children }: RouteProps) => {
-//   if (!isAuthenticated) {
-//     return <Navigate to="/" replace />
-//   }
+const PrivateRoute = ({ isAuthenticated, children }: RouteProps) => {
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/entrar" replace />
+  }
 
-//   return children
-// }
+  return children
+}
 
-// const PublicRoute = ({ isAuthenticated, children }: RouteProps) => {
-//   if (isAuthenticated) {
-//     return <Navigate to="/" />
-//   }
+const PublicRoute = ({ isAuthenticated, children }: RouteProps) => {
+  // if (isAuthenticated) {
+  //   return <Navigate to="/" />
+  // }
 
-//   return children
-// }
+  return children
+}

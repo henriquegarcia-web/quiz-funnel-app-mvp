@@ -2,9 +2,9 @@ import * as S from './styles'
 
 // import { useGetTemplate } from '@/hooks/data/useGetTemplate'
 
-interface ITemplateScreen {}
+interface IEditorV1 {}
 
-const TemplateScreen = ({}: ITemplateScreen) => {
+const EditorV1 = ({}: IEditorV1) => {
   // const {
   //   data: dataTemplate,
   //   error: errorTemplate,
@@ -12,7 +12,7 @@ const TemplateScreen = ({}: ITemplateScreen) => {
   //   isLoading
   // } = useGetTemplate()
 
-  return <S.TemplateScreen></S.TemplateScreen>
+  return <S.EditorV1></S.EditorV1>
 }
 
-export default TemplateScreen
+export default EditorV1
