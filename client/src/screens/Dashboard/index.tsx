@@ -1,18 +1,17 @@
 import * as S from './styles'
 
-// import { useGetTemplate } from '@/hooks/data/useGetTemplate'
+import { useAdminAuth } from '@/contexts/AdminAuthProvider'
 
 interface IDashboardScreen {}
 
 const DashboardScreen = ({}: IDashboardScreen) => {
-  // const {
-  //   data: dataTemplate,
-  //   error: errorTemplate,
-  //   fetchStatus,
-  //   isLoading
-  // } = useGetTemplate()
+  const { handleLogout } = useAdminAuth()
 
-  return <S.DashboardScreen></S.DashboardScreen>
+  return (
+    <S.DashboardScreen>
+      <button onClick={handleLogout}>Sair</button>
+    </S.DashboardScreen>
+  )
 }
 
 export default DashboardScreen

@@ -18,7 +18,7 @@ const AdminSignInForm = ({}: IAdminSignInForm) => {
 
   const { control, handleSubmit, formState, watch } =
     useForm<IAdminSignInFormData>({
-      mode: 'all',
+      mode: 'onBlur',
       resolver: yupResolver(AdminSignInSchema),
       defaultValues: {
         name: '',
@@ -51,7 +51,7 @@ const AdminSignInForm = ({}: IAdminSignInForm) => {
       })
     }
     if (success) {
-      navigate('/playground')
+      navigate('/admin')
     }
   }
 

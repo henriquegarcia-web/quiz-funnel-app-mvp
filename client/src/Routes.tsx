@@ -27,14 +27,7 @@ const AppRoutes = () => {
 
         {/* =============================================================== */}
 
-        <Route
-          path="/"
-          element={
-            <PublicRoute isAuthenticated={isAdminLogged}>
-              <QuizV1 />
-            </PublicRoute>
-          }
-        />
+        <Route path="/" element={<QuizV1 />} />
 
         <Route
           path="/admin/entrar"
@@ -96,9 +89,9 @@ const PrivateRoute = ({ isAuthenticated, children }: RouteProps) => {
 }
 
 const PublicRoute = ({ isAuthenticated, children }: RouteProps) => {
-  // if (isAuthenticated) {
-  //   return <Navigate to="/" />
-  // }
+  if (isAuthenticated) {
+    return <Navigate to="/admin" />
+  }
 
   return children
 }
