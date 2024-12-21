@@ -1,29 +1,21 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
+
 import { ConfigProvider, theme } from 'antd'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import AppRoutes from '@/Routes'
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import {
+  AdminAuthProvider,
+  useAdminAuth
+} from '@/contexts/AdminAuthProvider.tsx'
+import { AdminProvider } from '@/contexts/AdminProvider.tsx'
 
 function App() {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            // staleTime: 4 * 1000,
-            // refetchInterval: 4 * 1000
-          }
-        }
-      })
-  )
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
-      <AppThemed />
-    </QueryClientProvider>
+    <AdminAuthProvider>
+      <AdminProvider>
+        <AppThemed />
+      </AdminProvider>
+    </AdminAuthProvider>
   )
 }
 

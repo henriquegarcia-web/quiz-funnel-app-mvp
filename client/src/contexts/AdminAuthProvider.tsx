@@ -10,12 +10,6 @@ import { jwtDecode } from 'jwt-decode'
 import { toast } from 'react-toastify'
 
 import { useRegister, useLogin } from '@/hooks/data/useAuth'
-import {
-  useAdminProfile,
-  useAllAdminsProfile,
-  useDeleteAdmin,
-  useToggleAdminBlock
-} from '@/hooks/data/useAdmin'
 
 import { verifyToken } from '@/services/auth'
 import { IAdminAccountData } from '@/types/admin'
