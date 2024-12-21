@@ -7,10 +7,10 @@ import {
   EditorV1,
   QuizV1
 } from '@/screens'
-import { useAdmin } from '@/contexts/AdminProvider'
+import { useAdminAuth } from '@/contexts/AdminAuthProvider'
 
 const AppRoutes = () => {
-  const { isAdminLogged } = useAdmin()
+  const { isAdminLogged } = useAdminAuth()
 
   return (
     <BrowserRouter

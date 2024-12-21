@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components'
+import { Form as AntdForm, Layout } from 'antd'
 
 export const responsiveDesktop = '1000px'
 export const responsiveTablet = '760px'
@@ -52,10 +53,45 @@ const GlobalStyle = createGlobalStyle`
 
 export default GlobalStyle
 
-export const Screen = styled.div`
+export const Screen = styled(Layout)`
   display: flex;
   flex-direction: column;
   width: 100%;
   height: fit-content;
   min-height: 100vh;
+`
+
+export const FormattedForm = styled(AntdForm)`
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 10px;
+  width: 100%; */
+
+  .ant-form-item {
+    width: 100%;
+    margin-bottom: 0px;
+
+    .ant-form-item-label {
+      padding-bottom: 5px;
+
+      label {
+        font-size: 12px;
+      }
+    }
+
+    .ant-input {
+      font-size: 14px;
+    }
+
+    .ant-form-item-explain-error {
+      margin-top: 5px;
+
+      font-size: 13px;
+    }
+  }
+
+  /* button[type='submit'] {
+    margin-top: 10px;
+  } */
 `

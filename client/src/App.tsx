@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import AppRoutes from '@/Routes'
-import { useAdmin } from '@/contexts/AdminProvider'
+import { useAdminAuth } from '@/contexts/AdminAuthProvider'
 
 function App() {
   const [queryClient] = useState(
@@ -30,11 +30,13 @@ function App() {
 export default App
 
 const AppThemed = () => {
-  const { adminTheme } = useAdmin()
+  const { adminAccountData } = useAdminAuth()
 
   const themeSelected = useMemo(() => {
-    return adminTheme === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm
-  }, [adminTheme])
+    return adminAccountData?.theme === 'light'
+      ? theme.defaultAlgorithm
+      : theme.darkAlgorithm
+  }, [adminAccountData])
 
   return (
     <ConfigProvider
