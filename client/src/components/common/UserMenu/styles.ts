@@ -1,23 +1,15 @@
 import styled from 'styled-components'
-import { Card, Tag, Typography } from 'antd'
+import { Tag, Typography } from 'antd'
 
 import Fonts from '@/utils/styles/fonts'
+import { Card } from '@/utils/styles/common'
 
 const { Paragraph, Text, Link } = Typography
 
 export const UserMenu = styled(Card)`
   display: flex;
-  width: fit-content;
-  max-width: fit-content;
   cursor: pointer;
-
-  .ant-card-body {
-    display: flex;
-    align-items: center;
-    padding: 8px 10px;
-    width: fit-content;
-    max-width: fit-content;
-  }
+  padding: 8px 10px;
 `
 
 export const UserMenuInfos = styled.div`

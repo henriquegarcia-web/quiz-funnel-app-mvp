@@ -1,6 +1,5 @@
 import styled from 'styled-components'
-import { Screen } from '@/utils/styles/globals'
-import { Card } from 'antd'
+import { Screen, Container } from '@/utils/styles/common'
 
 export const AdminAuthScreen = styled(Screen)`
   display: flex;
@@ -9,7 +8,7 @@ export const AdminAuthScreen = styled(Screen)`
   padding: 0 25px;
 `
 
-export const AuthContainer = styled(Card)`
+export const AuthContainer = styled(Container)`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -17,11 +16,6 @@ export const AuthContainer = styled(Card)`
   width: 100%;
   max-width: 340px;
   padding: 25px;
-
-  .ant-card-body {
-    width: 100%;
-    padding: 0;
-  }
 `
 
 export const AuthContainerHeader = styled.div`

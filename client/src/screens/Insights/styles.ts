@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Screen } from '@/utils/styles/globals'
+import { Screen } from '@/utils/styles/common'
 
 export const InsightsScreen = styled(Screen)`
   display: flex;

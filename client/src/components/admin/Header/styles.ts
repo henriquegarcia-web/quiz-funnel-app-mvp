@@ -1,19 +1,14 @@
 import styled from 'styled-components'
-import { theme } from 'antd'
 
 import Fonts from '@/utils/styles/fonts'
-import { dashboardHeaderHeight, dashboardWrapper } from '@/utils/styles/globals'
+import { Global } from '@/utils/styles/globals'
+import { DashboardHeader } from '@/utils/styles/common'
 
-const { useToken } = theme
-
-export const Header = styled.div`
+export const Header = styled(DashboardHeader)`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: ${dashboardHeaderHeight};
-  padding: 0 20px;
-
-  background-color: ${() => useToken().token.colorBgElevated};
+  height: ${Global.height.dashboardHeader};
 `
 
 export const HeaderWrapper = styled.div`
@@ -21,6 +16,6 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: ${dashboardWrapper};
+  max-width: ${Global.wrapper.dashboard};
   height: 100%;
 `

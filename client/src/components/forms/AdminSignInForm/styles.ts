@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FormattedForm } from '@/utils/styles/globals'
+import { FormattedForm } from '@/utils/styles/common'
 import Fonts from '@/utils/styles/fonts'
 
 export const AdminSignInForm = styled(FormattedForm)`

@@ -1,16 +1,41 @@
 import styled, { createGlobalStyle } from 'styled-components'
-import { Form as AntdForm, Layout, theme } from 'antd'
 
 import Fonts from './fonts'
 
-export const responsiveDesktop = '1000px'
-export const responsiveTablet = '760px'
-export const responsiveMobile = '500px'
+export const Global = {
+  responsive: {
+    desktop: '1000px',
+    tablet: '760px',
+    mobile: '500px'
+  },
+  wrapper: {
+    dashboard: '860px'
+  },
+  height: {
+    dashboardHeader: '75px',
+    editorV1Header: '70px'
+  },
+  radius: {
+    container: '10px',
+    card: '8px',
+    item: '6px'
+  },
+  spacing: {
+    page: '25px',
+    container: '25px',
+    card: '20px',
+    item: '15px'
+  }
+}
 
-export const dashboardWrapper = '860px'
+// export const responsiveDesktop = '1000px'
+// export const responsiveTablet = '760px'
+// export const responsiveMobile = '500px'
 
-export const dashboardHeaderHeight = '75px'
-export const editorV1HeaderHeight = '70px'
+// export const dashboardWrapper = '860px'
+
+// export const dashboardHeaderHeight = '75px'
+// export const editorV1HeaderHeight = '70px'
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -68,63 +93,3 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default GlobalStyle
-
-export const Screen = styled(Layout)`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: fit-content;
-  min-height: 100vh;
-`
-
-const { useToken } = theme
-
-export const FormattedForm = styled(AntdForm)`
-  .ant-form-item {
-    width: 100%;
-    margin-bottom: 0px;
-
-    .ant-form-item-label {
-      padding-bottom: 5px !important;
-
-      label {
-        font-size: 12px;
-      }
-    }
-
-    .ant-input-password {
-      padding: 0 11px;
-      box-shadow: none !important;
-
-      .ant-input {
-        padding: 0;
-        height: 32.4px;
-      }
-    }
-
-    .ant-input {
-      font-size: ${Fonts.xs};
-      height: 34px;
-      padding: 0 11px 1px 11px;
-
-      &:focus {
-        box-shadow: none !important;
-      }
-
-      &:-webkit-autofill,
-      &:-webkit-autofill:hover,
-      &:-webkit-autofill:focus,
-      &:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px ${() => useToken().token.colorFill} inset !important;
-        -webkit-text-fill-color: ${() =>
-          useToken().token.colorTextBase} !important;
-      }
-    }
-
-    .ant-form-item-explain-error {
-      margin-top: 5px;
-
-      font-size: 12px;
-    }
-  }
-`

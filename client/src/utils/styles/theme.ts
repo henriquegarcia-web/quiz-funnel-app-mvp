@@ -149,15 +149,15 @@ const darkThemeTokens = {
   // colorFillSecondary: '#262626',
   // colorFillTertiary: '#434343',
   // colorFillQuaternary: '#595959',
-  // colorBgBase: '#141414',
-  colorBgContainer: '#3a3e66',
-  colorBgElevated: '#252544',
-  colorBgLayout: '#0f102b'
-  // colorBgSpotlight: '#1F1F1F',
-  // colorBorder: '#434343',
-  // colorBorderSecondary: '#595959',
-  // colorBorderTertiary: '#8C8C8C',
-  // colorBorderQuaternary: '#BFBFBF',
+  colorBgLayout: '#080f25', // -------------> BACKGROUND
+  colorBgSpotlight: '#101935', // ----------> HEADER
+  colorBgBase: '#101935', // ---------------> CONTAINER
+  colorBgContainer: '#262f57', // ----------> CARD
+  colorBgElevated: '#37406f', // -----------> ITEM
+  colorBorder: '#3c5678'
+  // colorBorderSecondary: '#5d637b',
+  // colorBorderTertiary: '#9c9dce',
+  // colorBorderQuaternary: '#3c5678',
   // colorBorderBg: '#141414',
   // colorBgMask: 'rgba(0, 0, 0, 0.45)'
 }
