@@ -49,3 +49,11 @@ export interface IAdminAccountData {
   role: string
   theme: AdminThemeType
 }
+
+// =============================================== FUNNEL
+
+export const CreateFunnelSchema = Yup.object().shape({
+  funnelName: Yup.string().required('Título do funil é obrigatório')
+})
+
+export type ICreateFunnelFormData = Yup.InferType<typeof CreateFunnelSchema>

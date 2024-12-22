@@ -40,7 +40,7 @@ export const FunnelsListHeader = styled.div`
 export const FunnelsListHeaderLabels = styled(Text)`
   display: flex;
   flex-direction: column;
-  row-gap: 6px;
+  row-gap: 8px;
 
   b {
     font-size: ${Fonts.xxl};
@@ -52,6 +52,8 @@ export const FunnelsListHeaderLabels = styled(Text)`
     font-size: ${Fonts.xs};
     line-height: ${Fonts.xs};
     font-weight: 300;
+
+    opacity: 0.75;
   }
 `
 

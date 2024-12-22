@@ -1,6 +1,7 @@
 // ================================================== FORMS
 
 import AdminSignInForm from './forms/AdminSignInForm'
+import CreateFunnelForm from './forms/CreateFunnelForm'
 
 // ================================================== ADMIN
 
@@ -18,6 +19,7 @@ import UserMenu from './common/UserMenu'
 
 export {
   AdminSignInForm,
+  CreateFunnelForm,
   Logo,
   UserMenu,
   Header as DashboardHeader,

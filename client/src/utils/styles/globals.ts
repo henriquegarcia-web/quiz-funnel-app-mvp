@@ -89,7 +89,14 @@ const GlobalStyle = createGlobalStyle`
     background: rgba(0, 0, 0, 0.4);
   }
 
-  
+  .ant-modal-header {
+    margin-bottom: 20px !important;
+
+    .ant-modal-title {
+      font-size: ${Fonts.xl} !important;
+      line-height: ${Fonts.xl} !important;
+    }
+  }
 `
 
 export default GlobalStyle
