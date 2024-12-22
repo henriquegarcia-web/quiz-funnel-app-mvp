@@ -9,7 +9,11 @@ const { Paragraph, Text, Link } = Typography
 export const UserMenu = styled(Card)`
   display: flex;
   cursor: pointer;
-  padding: 8px 10px;
+  padding: 6px 6px 6px 8px;
+
+  /* &:not(:hover) {
+    background-color: transparent;
+  } */
 `
 
 export const UserMenuInfos = styled.div`

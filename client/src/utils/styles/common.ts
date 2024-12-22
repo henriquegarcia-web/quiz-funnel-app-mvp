@@ -22,6 +22,7 @@ export const DashboardHeader = styled.div`
 `
 
 export const Container = styled.div`
+  transition: 0.2s;
   border-radius: ${Global.radius.container};
   padding: ${Global.spacing.container};
 
@@ -30,6 +31,7 @@ export const Container = styled.div`
 `
 
 export const Card = styled.div`
+  transition: 0.2s;
   border-radius: ${Global.radius.card};
   padding: ${Global.spacing.card};
 
@@ -38,6 +40,7 @@ export const Card = styled.div`
 `
 
 export const Item = styled.div`
+  transition: 0.2s;
   border-radius: ${Global.radius.item};
   padding: ${Global.spacing.item};
 

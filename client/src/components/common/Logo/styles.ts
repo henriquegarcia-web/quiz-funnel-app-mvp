@@ -20,7 +20,7 @@ const sizeStyles = {
 }
 
 export const Logo = styled(Text)<{ size: LogoSizeType }>`
-  font-family: 'Archivo', serif;
+  font-family: 'Archivo', serif !important;
   font-size: ${({ size }) => sizeStyles[size].fontSize};
   font-weight: 300;
   white-space: nowrap;

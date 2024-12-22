@@ -57,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
     /* font-family: "Baloo Paaji 2", sans-serif; */
     /* font-family: "Barlow", sans-serif; */
     /* font-family: "Open Sans", sans-serif; */
-    /* font-family: "Archivo", serif; */
+    font-family: "Archivo", serif;
     text-decoration: none;
     user-select: none;
 
@@ -89,7 +89,7 @@ const GlobalStyle = createGlobalStyle`
     background: rgba(0, 0, 0, 0.4);
   }
 
-
+  
 `
 
 export default GlobalStyle
