@@ -62,7 +62,8 @@ export type ICreateFunnelFormData = Yup.InferType<typeof CreateFunnelSchema>
 
 export const StepEditorSchema = Yup.object().shape({
   stepName: Yup.string().required('Título da etapa é obrigatório'),
-  stepActive: Yup.boolean()
+  stepActive: Yup.boolean(),
+  stepCanGoBack: Yup.boolean()
 })
 
 export type IStepEditorFormData = Yup.InferType<typeof StepEditorSchema>
@@ -84,9 +85,20 @@ export type IStepEditorFormData = Yup.InferType<typeof StepEditorSchema>
 export const FunnelSettingsSchema_General = Yup.object().shape({
   funnelName: Yup.string().required('Título do funil é obrigatório'),
   funnelSlug: Yup.string().required('Slug do funil é obrigatório'),
-  funnelActive: Yup.boolean()
+  funnelActive: Yup.boolean(),
+  funnelFlowType: Yup.string().required('Tipo de flow do funil é obrigatório')
 })
 
-export type IFunnelSettingsFormData = Yup.InferType<
+export type IFunnelSettingsFormData_General = Yup.InferType<
   typeof FunnelSettingsSchema_General
+>
+
+export const FunnelSettingsSchema_Seo = Yup.object().shape({
+  funnelPageName: Yup.string(),
+  funnelPageDescription: Yup.string(),
+  funnelPageFavicon: Yup.string()
+})
+
+export type IFunnelSettingsFormData_Seo = Yup.InferType<
+  typeof FunnelSettingsSchema_Seo
 >

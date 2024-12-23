@@ -6,6 +6,13 @@ export interface IFunnelSettings {
   name: string
   slug: string
   isPublished: boolean
+  flowType: 'flow_button' | 'flow_direct_click'
+}
+
+export interface IFunnelSeo {
+  pageName: string | null
+  pageDescription: string | null
+  pageFavicon: string | null
 }
 
 export interface IFunnelStep {
@@ -13,11 +20,13 @@ export interface IFunnelStep {
   stepId: string
   stepName: string
   stepActive: boolean
+  stepCanGoBack: boolean
 }
 
 export interface IFunnel {
   funnelId: string
   funnelSettings: IFunnelSettings
+  funnelSeo: IFunnelSeo
   funnelSteps: IFunnelStep[]
   createdAt: string
   lastEditionAt: string
@@ -29,26 +38,36 @@ export const MOCK_FUNNELS_LIST: IFunnel[] = [
     funnelSettings: {
       name: 'Quiz de Teste',
       slug: 'funnel-test',
-      isPublished: true
+      isPublished: true,
+      flowType: 'flow_button'
+    },
+    funnelSeo: {
+      pageName: 'Nome da Página',
+      pageDescription:
+        'Descrição longa dessa página de Funil em formato de Quiz',
+      pageFavicon: ''
     },
     funnelSteps: [
       {
         stepIndex: 0,
         stepId: 'step_01',
         stepName: 'Etapa 1',
-        stepActive: true
+        stepActive: true,
+        stepCanGoBack: false
       },
       {
         stepIndex: 1,
         stepId: 'step_02',
         stepName: 'Etapa 2',
-        stepActive: false
+        stepActive: false,
+        stepCanGoBack: true
       },
       {
         stepIndex: 2,
         stepId: 'step_03',
         stepName: 'Etapa 3',
-        stepActive: true
+        stepActive: true,
+        stepCanGoBack: true
       }
     ],
     createdAt: '22 de outubro de 2024',

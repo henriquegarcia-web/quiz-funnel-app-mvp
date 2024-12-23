@@ -153,7 +153,7 @@ const darkThemeTokens = {
   colorBgBase: '#1b2b59', // ---------------> CONTAINER
   colorBgContainer: '#080f25',
   colorFill: '#101935', // -----------------> CARD
-  colorBgElevated: '#131e40', // -----------> ITEM
+  colorBgElevated: '#152247', // -----------> ITEM
   colorBorder: '#17244d'
   // colorBorderSecondary: '#5d637b',
   // colorBorderTertiary: '#9c9dce',

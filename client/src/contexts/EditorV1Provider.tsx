@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState
+} from 'react'
 
 import { toast } from 'react-toastify'
 
@@ -66,6 +73,10 @@ const EditorV1Provider = ({ children }: { children: React.ReactNode }) => {
       setStepEditionType('component')
     }
   }
+
+  useLayoutEffect(() => {
+    setEditorActiveView(EDITORV1_NAVIGATION_ITEMS[0])
+  }, [])
 
   // ========================================================================
 

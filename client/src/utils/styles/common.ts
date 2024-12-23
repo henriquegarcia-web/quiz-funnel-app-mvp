@@ -130,6 +130,12 @@ export const FormattedForm = styled(Form)`
       font-size: 12px;
     }
   }
+
+  textarea {
+    resize: none;
+    height: initial !important;
+    padding: 8px 11px !important;
+  }
 `
 
 // ========================================================

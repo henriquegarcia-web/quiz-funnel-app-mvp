@@ -8,7 +8,7 @@ import { useEditorV1 } from '@/contexts/EditorV1Provider'
 interface INavigation {}
 
 const Navigation = ({}: INavigation) => {
-  const { handleActivateView } = useEditorV1()
+  const { editorActiveView, handleActivateView } = useEditorV1()
 
   const formattedNavData = EDITORV1_NAVIGATION_ITEMS.map((nav) => ({
     value: nav.navId,
@@ -25,7 +25,14 @@ const Navigation = ({}: INavigation) => {
     }
   }
 
-  return <Segmented options={formattedNavData} onChange={onNavChange} />
+  return (
+    <Segmented
+      defaultValue={editorActiveView.navId}
+      value={editorActiveView.navId}
+      options={formattedNavData}
+      onChange={onNavChange}
+    />
+  )
 }
 
 export default Navigation

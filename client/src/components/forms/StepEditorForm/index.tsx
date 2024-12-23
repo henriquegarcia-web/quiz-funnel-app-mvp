@@ -28,7 +28,8 @@ const StepEditorForm = ({ stepActive }: IStepEditorForm) => {
       resolver: yupResolver(StepEditorSchema),
       defaultValues: {
         stepName: '',
-        stepActive: true
+        stepActive: true,
+        stepCanGoBack: true,
       }
     })
 
@@ -49,6 +50,7 @@ const StepEditorForm = ({ stepActive }: IStepEditorForm) => {
     if (stepActive) {
       setValue('stepName', stepActive.stepName)
       setValue('stepActive', stepActive.stepActive)
+      setValue('stepCanGoBack', stepActive.stepCanGoBack)
     }
   }, [stepActive, setValue])
 
@@ -84,6 +86,25 @@ const StepEditorForm = ({ stepActive }: IStepEditorForm) => {
                   label="Oculta / Ativa"
                   validateStatus={errors.stepActive ? 'error' : ''}
                   help={errors.stepActive?.message}
+                >
+                  <Switch
+                    {...restField}
+                    checked={value}
+                    onChange={(checked: boolean) => {
+                      onChange(checked)
+                    }}
+                  />
+                </Form.Item>
+              )}
+            />
+            <Controller
+              name="stepCanGoBack"
+              control={control}
+              render={({ field: { onChange, value, ...restField } }) => (
+                <Form.Item
+                  label="Permitir voltar"
+                  validateStatus={errors.stepCanGoBack ? 'error' : ''}
+                  help={errors.stepCanGoBack?.message}
                 >
                   <Switch
                     {...restField}

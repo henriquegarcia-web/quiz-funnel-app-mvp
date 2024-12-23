@@ -113,4 +113,27 @@ const EDITORV1_NAVIGATION_ITEMS: IEditorNavItem[] = [
   }
 ]
 
-export { ADMIN_ROLES, ADMIN_MENU_ITEMS, EDITORV1_NAVIGATION_ITEMS }
+// ============================= EDITOR V1 NAVIGATION ITEMS
+
+export interface IFunnelFlowType {
+  flowId: string
+  flowLabel: string
+}
+
+const FUNNEL_FLOW_TYPES: IFunnelFlowType[] = [
+  {
+    flowId: 'flow_button',
+    flowLabel: 'Com botão'
+  },
+  {
+    flowId: 'flow_direct_click',
+    flowLabel: 'Com clique direto'
+  }
+]
+
+export {
+  ADMIN_ROLES,
+  ADMIN_MENU_ITEMS,
+  EDITORV1_NAVIGATION_ITEMS,
+  FUNNEL_FLOW_TYPES
+}
