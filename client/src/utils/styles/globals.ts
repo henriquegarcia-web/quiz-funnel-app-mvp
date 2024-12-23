@@ -9,7 +9,8 @@ export const Global = {
     mobile: '500px'
   },
   wrapper: {
-    dashboard: '860px'
+    dashboard: '860px',
+    editorV1: '800px'
   },
   height: {
     dashboardHeader: '80px',

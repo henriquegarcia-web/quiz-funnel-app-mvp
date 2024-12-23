@@ -9,13 +9,13 @@ import { useEditorV1 } from '@/contexts/EditorV1Provider'
 interface IEditorV1 {}
 
 const EditorV1 = ({}: IEditorV1) => {
-  const { funnelId } = useParams()
+  const { funnelSlug } = useParams()
   const { editorActiveView, handleActivateFunnel, handleActivateStep } =
     useEditorV1()
 
   useEffect(() => {
     const activeFunnelData = MOCK_FUNNELS_LIST.find(
-      (funnel: IFunnel) => funnel.funnelId === funnelId
+      (funnel: IFunnel) => funnel.funnelSettings.slug === funnelSlug
     )
 
     if (!!activeFunnelData && activeFunnelData.funnelSteps.length > 0) {
@@ -23,7 +23,7 @@ const EditorV1 = ({}: IEditorV1) => {
     }
 
     handleActivateFunnel(activeFunnelData)
-  }, [MOCK_FUNNELS_LIST, funnelId])
+  }, [MOCK_FUNNELS_LIST, funnelSlug])
 
   return (
     <S.EditorV1>

@@ -57,7 +57,7 @@ const AppRoutes = () => {
         />
 
         <Route
-          path="/admin/editor/:funnelId"
+          path="/admin/editor/:funnelSlug"
           element={
             <PrivateRoute isAuthenticated={isAdminLogged}>
               <EditorV1 />

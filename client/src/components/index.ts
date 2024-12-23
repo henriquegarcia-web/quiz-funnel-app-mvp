@@ -3,6 +3,8 @@
 import AdminSignInForm from './forms/AdminSignInForm'
 import CreateFunnelForm from './forms/CreateFunnelForm'
 import StepEditorForm from './forms/StepEditorForm'
+import FunnelDesignForm from './forms/FunnelDesignForm'
+import FunnelSettingsForm from './forms/FunnelSettingsForm'
 
 // ================================================== ADMIN
 
@@ -42,5 +44,7 @@ export {
   SideMenu,
   ComponentsMenu,
   StepEditor,
-  StepEditorForm
+  StepEditorForm,
+  FunnelDesignForm,
+  FunnelSettingsForm
 }

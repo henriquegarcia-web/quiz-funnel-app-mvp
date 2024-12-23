@@ -28,7 +28,7 @@ const EditorView = ({}: IEditorView) => {
 
       <Splitter.Panel></Splitter.Panel>
 
-      <Splitter.Panel defaultSize={300} min={300} max={360}>
+      <Splitter.Panel defaultSize={340} min={340} max={400}>
         {/* <S.EditorPanelHeader>Edições da Etapa</S.EditorPanelHeader> */}
         <StepEditor stepEditionType={stepEditionType} stepActive={stepActive} />
       </Splitter.Panel>

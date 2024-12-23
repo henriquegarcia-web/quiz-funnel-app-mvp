@@ -3,6 +3,8 @@
 import { LuAirplay } from 'react-icons/lu'
 
 export interface IFunnelSettings {
+  name: string
+  slug: string
   isPublished: boolean
 }
 
@@ -15,7 +17,6 @@ export interface IFunnelStep {
 
 export interface IFunnel {
   funnelId: string
-  funnelName: string
   funnelSettings: IFunnelSettings
   funnelSteps: IFunnelStep[]
   createdAt: string
@@ -25,8 +26,9 @@ export interface IFunnel {
 export const MOCK_FUNNELS_LIST: IFunnel[] = [
   {
     funnelId: 'funnel_test',
-    funnelName: 'Quiz de Teste',
     funnelSettings: {
+      name: 'Quiz de Teste',
+      slug: 'funnel-test',
       isPublished: true
     },
     funnelSteps: [

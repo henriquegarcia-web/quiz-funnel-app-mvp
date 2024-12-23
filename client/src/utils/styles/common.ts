@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Form, Typography, theme } from 'antd'
+import { Form, Splitter, Typography, theme } from 'antd'
 import { Global } from './globals'
 import Fonts from './fonts'
 
@@ -65,6 +65,20 @@ export const Item = styled.div`
 
   background-color: ${() => useToken().token.colorBgElevated};
   /* border: 1px solid ${() => useToken().token.colorBorder}; */
+`
+
+export const CustomSplitter = styled(Splitter)`
+  .ant-splitter-bar-dragger {
+    &::before {
+      width: 1px !important;
+      background-color: ${() => useToken().token.colorBorder} !important;
+    }
+
+    &::after {
+      width: 3px !important;
+      background-color: ${() => useToken().token.colorBorder} !important;
+    }
+  }
 `
 
 export const FormattedForm = styled(Form)`

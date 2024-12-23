@@ -21,7 +21,7 @@ const FunnelItem = ({ funnel }: IFunnelItem) => {
   return (
     <S.FunnelItem>
       <S.FunnelItemLegends>
-        <b>{funnel.funnelName}</b>
+        <b>{funnel.funnelSettings.name}</b>
         <p>{funnel.createdAt}</p>
       </S.FunnelItemLegends>
       <S.FunnelItemCtas>
@@ -35,7 +35,9 @@ const FunnelItem = ({ funnel }: IFunnelItem) => {
         <Tooltip placement="bottomRight" title="Editar">
           <Button
             icon={<LuPencilRuler />}
-            onClick={() => navigate(`/admin/editor/${funnel.funnelId}`)}
+            onClick={() =>
+              navigate(`/admin/editor/${funnel.funnelSettings.slug}`)
+            }
           />
         </Tooltip>
         <Tooltip placement="bottomRight" title="Insights">
