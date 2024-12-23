@@ -12,8 +12,8 @@ export const Global = {
     dashboard: '860px'
   },
   height: {
-    dashboardHeader: '75px',
-    editorV1Header: '70px'
+    dashboardHeader: '80px',
+    editorV1Header: '65px'
   },
   radius: {
     container: '10px',
@@ -95,6 +95,50 @@ const GlobalStyle = createGlobalStyle`
     .ant-modal-title {
       font-size: ${Fonts.xl} !important;
       line-height: ${Fonts.xl} !important;
+    }
+  }
+
+  .ant-btn {
+    box-shadow: none !important;
+
+    &.ant-btn-lg {
+      font-size: ${Fonts.xs} ;
+      
+      &.ant-btn-primary {
+        height: 38px !important;
+      }
+    }
+
+  }
+
+
+  .ant-segmented {
+    height: 41px;
+    padding: 5px;
+    border: 1px solid #17244d;
+
+    .ant-segmented-group {
+      display: flex;
+      column-gap: 5px;
+      height: 100%;
+
+      .ant-segmented-item-label {
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        span:not(.ant-segmented-item-icon) {
+          font-size: ${Fonts.xxs};
+        }
+
+        .ant-segmented-item-icon {
+          display: flex;
+
+          svg {
+            font-size: ${Fonts.regular} !important;
+          }
+        }
+      }
     }
   }
 `

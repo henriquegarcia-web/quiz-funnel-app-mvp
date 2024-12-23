@@ -2,14 +2,14 @@ import styled from 'styled-components'
 import { Tag, Typography } from 'antd'
 
 import Fonts from '@/utils/styles/fonts'
-import { Card } from '@/utils/styles/common'
+import { Card, Container, Item } from '@/utils/styles/common'
 
 const { Paragraph, Text, Link } = Typography
 
-export const UserMenu = styled(Card)`
+export const UserMenu = styled(Container)`
   display: flex;
   cursor: pointer;
-  padding: 6px 6px 6px 8px;
+  padding: 8px 8px 8px 10px;
 
   /* &:not(:hover) {
     background-color: transparent;

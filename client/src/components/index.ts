@@ -5,8 +5,12 @@ import CreateFunnelForm from './forms/CreateFunnelForm'
 
 // ================================================== ADMIN
 
-import Header from './admin/Header'
+import { Header as DashboardHeader } from './admin/Header'
 import FunnelItem from './admin/FunnelItem'
+
+// ================================================== EDITOR V1
+
+import { Header as EditorV1Header } from './editorV1/Header'
 
 // ================================================== QUIZ
 
@@ -22,6 +26,7 @@ export {
   CreateFunnelForm,
   Logo,
   UserMenu,
-  Header as DashboardHeader,
+  DashboardHeader,
+  EditorV1Header,
   FunnelItem
 }

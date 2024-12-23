@@ -4,7 +4,7 @@ import { Logo, UserMenu } from '@/components'
 
 interface IHeader {}
 
-const Header = ({}: IHeader) => {
+export const Header = ({}: IHeader) => {
   return (
     <S.Header>
       <S.HeaderWrapper>
@@ -14,5 +14,3 @@ const Header = ({}: IHeader) => {
     </S.Header>
   )
 }
-
-export default Header

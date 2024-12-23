@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Screen, Container } from '@/utils/styles/common'
+import { Screen, AuthContainer as Container } from '@/utils/styles/common'
 
 export const AdminAuthScreen = styled(Screen)`
   display: flex;

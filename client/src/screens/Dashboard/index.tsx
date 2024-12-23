@@ -26,7 +26,9 @@ const DashboardScreen = ({}: IDashboardScreen) => {
                 <p>Crie, edite e visualize seus funis de venda abaixo</p>
               </S.FunnelsListHeaderLabels>
               <S.FunnelsListHeaderCtas>
-                <Button onClick={handleOpenCreateFunnelModal}>Novo Quiz</Button>
+                <Button size="large" onClick={handleOpenCreateFunnelModal}>
+                  Novo Quiz
+                </Button>
               </S.FunnelsListHeaderCtas>
             </S.FunnelsListHeader>
             <S.FunnelsList>
@@ -39,6 +41,7 @@ const DashboardScreen = ({}: IDashboardScreen) => {
       </S.DashboardScreen>
 
       <Modal
+        centered
         title="Criar Funil (QUIZ)"
         open={isCreateFunnelModalOpen}
         footer={null}

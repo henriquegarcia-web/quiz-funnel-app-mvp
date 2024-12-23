@@ -13,11 +13,29 @@ export const Screen = styled.main`
   background-color: ${() => useToken().token.colorBgLayout};
 `
 
-export const DashboardHeader = styled.div`
+export const DashboardHeader = styled.header`
   padding: 0 ${Global.spacing.page};
 
   background-color: ${() => useToken().token.colorBgSpotlight};
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  /* border: 1px solid ${() => useToken().token.colorBorder}; */
+`
+
+export const EditorV1Header = styled.header`
+  padding: 0;
+
+  background-color: ${() => useToken().token.colorBgSpotlight};
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid ${() => useToken().token.colorBorder};
+`
+
+export const AuthContainer = styled.div`
+  transition: 0.2s;
+  border-radius: ${Global.radius.container};
+  padding: ${Global.spacing.container};
+
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: ${() => useToken().token.colorFill};
   /* border: 1px solid ${() => useToken().token.colorBorder}; */
 `
 
@@ -35,7 +53,7 @@ export const Card = styled.div`
   border-radius: ${Global.radius.card};
   padding: ${Global.spacing.card};
 
-  background-color: ${() => useToken().token.colorBgContainer};
+  background-color: ${() => useToken().token.colorFill};
   /* border: 1px solid ${() => useToken().token.colorBorder}; */
 `
 
