@@ -1,30 +1,31 @@
 import * as S from './styles'
 
 import { Segmented } from 'antd'
-import {
-  LuChartNoAxesCombined,
-  LuPalette,
-  LuPencilRuler,
-  LuSettings
-} from 'react-icons/lu'
+
+import { EDITORV1_NAVIGATION_ITEMS } from '@/data/admin'
+import { useEditorV1 } from '@/contexts/EditorV1Provider'
 
 interface INavigation {}
 
 const Navigation = ({}: INavigation) => {
-  return (
-    <Segmented
-      options={[
-        { label: 'Editor', value: 'editor', icon: <LuPencilRuler /> },
-        { label: 'Design', value: 'design', icon: <LuPalette /> },
-        {
-          label: 'Insights',
-          value: 'insights',
-          icon: <LuChartNoAxesCombined />
-        },
-        { label: 'Configurações', value: 'settings', icon: <LuSettings /> }
-      ]}
-    />
-  )
+  const { handleActivateView } = useEditorV1()
+
+  const formattedNavData = EDITORV1_NAVIGATION_ITEMS.map((nav) => ({
+    value: nav.navId,
+    label: nav.navLabel,
+    icon: nav.navIcon
+  }))
+
+  const onNavChange = (activeNavKey: string) => {
+    const activeView = EDITORV1_NAVIGATION_ITEMS?.find(
+      (nav) => nav.navId === activeNavKey
+    )
+    if (activeView) {
+      handleActivateView(activeView)
+    }
+  }
+
+  return <Segmented options={formattedNavData} onChange={onNavChange} />
 }
 
 export default Navigation

@@ -46,6 +46,8 @@ const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   const { mutateAsync: deleteAdmin } = useDeleteAdmin()
   const { mutateAsync: toggleAdminBlock } = useToggleAdminBlock()
 
+  // ============================================= USER ACCESS FUNCTIONS
+
   const handleRegisterAccess = async (adminData: {
     email: string
     role: string

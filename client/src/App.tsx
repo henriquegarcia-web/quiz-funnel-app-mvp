@@ -3,18 +3,18 @@ import { useMemo } from 'react'
 import { ConfigProvider, theme } from 'antd'
 
 import AppRoutes from '@/Routes'
-import {
-  AdminAuthProvider,
-  useAdminAuth
-} from '@/contexts/AdminAuthProvider.tsx'
-import { AdminProvider } from '@/contexts/AdminProvider.tsx'
+import { AdminAuthProvider, useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { AdminProvider } from '@/contexts/AdminProvider'
+import { EditorV1Provider } from '@/contexts/EditorV1Provider'
 import { themeTokens } from '@/utils/styles/theme'
 
 function App() {
   return (
     <AdminAuthProvider>
       <AdminProvider>
-        <AppThemed />
+        <EditorV1Provider>
+          <AppThemed />
+        </EditorV1Provider>
       </AdminProvider>
     </AdminAuthProvider>
   )

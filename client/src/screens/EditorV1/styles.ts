@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Typography, Splitter, theme } from 'antd'
+import { Typography, theme } from 'antd'
 
 import { Screen } from '@/utils/styles/common'
 import { Global } from '@/utils/styles/globals'
@@ -13,24 +13,11 @@ export const EditorV1 = styled(Screen)`
   flex-direction: column;
 `
 
-export const EditorV1Content = styled(Splitter)`
+export const EditorV1Content = styled.div`
   display: flex;
-  justify-content: center;
   width: 100%;
   height: fit-content;
   min-height: calc(100vh - ${Global.height.dashboardHeader});
-
-  .ant-splitter-bar-dragger {
-    &::before {
-      width: 1px !important;
-      background-color: ${() => useToken().token.colorBorder} !important;
-    }
-
-    &::after {
-      width: 3px !important;
-      background-color: ${() => useToken().token.colorBorder} !important;
-    }
-  }
 `
 
 export const EditorPanelHeader = styled(Text)`

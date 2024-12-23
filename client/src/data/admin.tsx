@@ -1,6 +1,18 @@
 import { createElement } from 'react'
-import { LuLogOut } from 'react-icons/lu'
+
+import {
+  LuLogOut,
+  LuChartNoAxesCombined,
+  LuPalette,
+  LuPencilRuler,
+  LuSettings
+} from 'react-icons/lu'
 import type { MenuProps } from 'antd'
+
+import EditorView from '@/screens/EditorV1/views/EditorView'
+import DesignView from '@/screens/EditorV1/views/DesignView'
+import InsightsView from '@/screens/EditorV1/views/InsightsView'
+import SettingsView from '@/screens/EditorV1/views/SettingsView'
 
 // ============================= ROLES
 
@@ -40,7 +52,7 @@ const ADMIN_ROLES: IRole[] = [
 
 // ============================= ADMIN MENU ITEMS
 
-const adminMenuItems: MenuProps['items'] = [
+const ADMIN_MENU_ITEMS: MenuProps['items'] = [
   {
     key: 'admin_my_account',
     label: 'Minha Conta'
@@ -65,4 +77,40 @@ const adminMenuItems: MenuProps['items'] = [
   }
 ]
 
-export { ADMIN_ROLES, adminMenuItems }
+// ============================= EDITOR V1 NAVIGATION ITEMS
+
+export interface IEditorNavItem {
+  navId: string
+  navLabel: string
+  navIcon: React.ReactNode
+  navView: React.ReactNode
+}
+
+const EDITORV1_NAVIGATION_ITEMS: IEditorNavItem[] = [
+  {
+    navId: 'nav_editor',
+    navLabel: 'Editor',
+    navIcon: <LuPencilRuler />,
+    navView: <EditorView />
+  },
+  {
+    navId: 'nav_design',
+    navLabel: 'Design',
+    navIcon: <LuPalette />,
+    navView: <DesignView />
+  },
+  {
+    navId: 'nav_insights',
+    navLabel: 'Insights',
+    navIcon: <LuChartNoAxesCombined />,
+    navView: <InsightsView />
+  },
+  {
+    navId: 'nav_settings',
+    navLabel: 'Configurações',
+    navIcon: <LuSettings />,
+    navView: <SettingsView />
+  }
+]
+
+export { ADMIN_ROLES, ADMIN_MENU_ITEMS, EDITORV1_NAVIGATION_ITEMS }

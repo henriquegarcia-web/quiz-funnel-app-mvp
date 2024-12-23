@@ -49,10 +49,10 @@ const DraggableTabNode: React.FC<Readonly<DraggableTabPaneProps>> = ({
 
 interface ISideMenu {
   menus?: IFunnelStep[]
-  handleSetActiveView: (view: IFunnelStep) => void
+  handleActivateStep: (view: IFunnelStep) => void
 }
 
-const SideMenu = ({ menus, handleSetActiveView }: ISideMenu) => {
+const SideMenu = ({ menus, handleActivateStep }: ISideMenu) => {
   const [items, setItems] = useState<NonNullable<TabsProps['items']>>([])
 
   const sensor = useSensor(PointerSensor, {
@@ -72,7 +72,7 @@ const SideMenu = ({ menus, handleSetActiveView }: ISideMenu) => {
   const onTabChange = (activeKey: string) => {
     const activeStep = menus?.find((menu) => menu.stepId === activeKey)
     if (activeStep) {
-      handleSetActiveView(activeStep)
+      handleActivateStep(activeStep)
     }
   }
 

@@ -6,7 +6,7 @@ import type { MenuProps } from 'antd'
 import { useAdminAuth } from '@/contexts/AdminAuthProvider'
 import { formatUsername } from '@/utils/functions/formatUsername'
 import useRoleDetails from '@/hooks/useRole'
-import { adminMenuItems } from '@/data/admin'
+import { ADMIN_MENU_ITEMS } from '@/data/admin'
 
 interface IUserMenu {}
 
@@ -22,7 +22,7 @@ const UserMenu = ({}: IUserMenu) => {
   }
 
   const menuProps = {
-    items: adminMenuItems || [],
+    items: ADMIN_MENU_ITEMS || [],
     onClick: handleMenuClick
   }
 
