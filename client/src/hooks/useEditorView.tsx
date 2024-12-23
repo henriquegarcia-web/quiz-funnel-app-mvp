@@ -11,7 +11,8 @@ export const useEditorView = (funnelSlug: string | undefined) => {
 
   useEffect(() => {
     const foundFunnel = MOCK_FUNNELS_LIST.find(
-      (funnel: IFunnel) => funnel.funnelSettings.slug === funnelSlug
+      (funnel: IFunnel) =>
+        funnel.funnelSettings.general.funnelSlug === funnelSlug
     )
 
     if (foundFunnel && !!handleActivateFunnel && !!handleActivateStep) {

@@ -70,17 +70,79 @@ export type IStepEditorFormData = Yup.InferType<typeof StepEditorSchema>
 
 // =============================================== FUNNEL DESIGN
 
-// export const FunnelDesignSchema_General = Yup.object().shape({
+// ===================== GENERAL
+
+export const FunnelDesignSchema_General = Yup.object().shape({
+  funnelShowLogo: Yup.boolean(),
+  funnelShowProgress: Yup.boolean()
+})
+
+export type IFunnelDesignFormData_General = Yup.InferType<
+  typeof FunnelDesignSchema_General
+>
+
+// ===================== GLOBAL MODELS
+
+export const FunnelDesignSchema_GlobalStyles = Yup.object().shape({
+  borderRadius: Yup.number(),
+  pageRowGap: Yup.number(),
+  backgroundColor: Yup.string(),
+  colorPrimary: Yup.string()
+})
+
+export type IFunnelDesignFormData_GlobalStyles = Yup.InferType<
+  typeof FunnelDesignSchema_GlobalStyles
+>
+
+// ===================== GLOBAL STYLES
+
+const FunnelDesignFontSchema = Yup.object().shape({
+  fontFamily: Yup.string(),
+  fontSize: Yup.number(),
+  fontWeight: Yup.number(),
+  fontColor: Yup.string()
+})
+
+const FunnelDesignBorderSchema = Yup.object().shape({
+  borderSize: Yup.number(),
+  borderRadius: Yup.number(),
+  borderColor: Yup.string()
+})
+
+const FunnelDesignContainerSchema = Yup.object().shape({
+  title: FunnelDesignFontSchema,
+  legend: FunnelDesignFontSchema,
+  emoji: Yup.mixed(),
+  backgroundColor: Yup.string(),
+  border: FunnelDesignBorderSchema
+})
+
+export const FunnelDesignSchema_GlobalModels = Yup.object().shape({
+  title: FunnelDesignFontSchema,
+  subtitle: FunnelDesignFontSchema,
+  legend: FunnelDesignFontSchema,
+  card: FunnelDesignContainerSchema
+})
+
+export type IFunnelDesignFormData_GlobalModels = Yup.InferType<
+  typeof FunnelDesignSchema_GlobalModels
+>
+
+// ===================== GLOBAL VARIABLES
+
+// export const FunnelDesignSchema_GlobalVariables = Yup.object().shape({
 //   funnelName: Yup.string().required('Título do funil é obrigatório'),
 //   funnelSlug: Yup.string().required('Slug do funil é obrigatório'),
 //   funnelActive: Yup.boolean()
 // })
 
-// export type IFunnelDesignFormData = Yup.InferType<
-//   typeof FunnelDesignSchema_General
+// export type IFunnelDesignFormData_GlobalVariables = Yup.InferType<
+//   typeof FunnelDesignSchema_GlobalVariables
 // >
 
 // =============================================== FUNNEL SETTINGS
+
+// ===================== GENERAL
 
 export const FunnelSettingsSchema_General = Yup.object().shape({
   funnelName: Yup.string().required('Título do funil é obrigatório'),
@@ -92,6 +154,8 @@ export const FunnelSettingsSchema_General = Yup.object().shape({
 export type IFunnelSettingsFormData_General = Yup.InferType<
   typeof FunnelSettingsSchema_General
 >
+
+// ===================== SEO
 
 export const FunnelSettingsSchema_Seo = Yup.object().shape({
   funnelPageName: Yup.string(),

@@ -10,7 +10,7 @@ const { useToken } = theme
 export const FunnelSettingsFormWrapper = styled.div`
   display: flex;
   width: 100%;
-  height: calc(100vh - ${Global.height.dashboardHeader});
+  height: calc(100vh - ${Global.height.editorV1Header});
   overflow: auto;
 
   .ant-collapse {

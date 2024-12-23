@@ -11,20 +11,21 @@ const { Paragraph, Text, Link } = Typography
 export const EditorV1 = styled(Screen)`
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `
 
 export const EditorV1Content = styled.div`
   display: flex;
   width: 100%;
   height: fit-content;
-  min-height: calc(100vh - ${Global.height.dashboardHeader});
+  min-height: calc(100vh - ${Global.height.editorV1Header});
 `
 
 export const EditorPanelHeader = styled(Text)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: ${Global.height.editorV1PanelHeader};
+  height: ${Global.height.editorV1Header};
   padding-bottom: 2px;
   opacity: 0.6;
 

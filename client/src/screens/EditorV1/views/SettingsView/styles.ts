@@ -13,5 +13,5 @@ export const SettingsView = styled(CustomSplitter)`
   justify-content: center;
   width: 100%;
   height: fit-content;
-  min-height: calc(100vh - ${Global.height.dashboardHeader});
+  min-height: calc(100vh - ${Global.height.editorV1Header});
 `

@@ -100,6 +100,10 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .ant-input-number, .ant-input-number-group-wrapper {
+    width: 100% !important;
+  }
+
   .ant-btn {
     box-shadow: none !important;
 

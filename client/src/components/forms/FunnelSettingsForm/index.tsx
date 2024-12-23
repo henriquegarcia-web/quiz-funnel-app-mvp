@@ -81,10 +81,16 @@ const FunnelSettingsFormGeneral = ({
 
   useEffect(() => {
     if (activeFunnel) {
-      setValue('funnelName', activeFunnel.funnelSettings.name)
-      setValue('funnelSlug', activeFunnel.funnelSettings.slug)
-      setValue('funnelActive', activeFunnel.funnelSettings.isPublished)
-      setValue('funnelFlowType', activeFunnel.funnelSettings.flowType)
+      setValue('funnelName', activeFunnel.funnelSettings.general.funnelName)
+      setValue('funnelSlug', activeFunnel.funnelSettings.general.funnelSlug)
+      setValue(
+        'funnelActive',
+        activeFunnel.funnelSettings.general.funnelIsPublished
+      )
+      setValue(
+        'funnelFlowType',
+        activeFunnel.funnelSettings.general.funnelFlowType
+      )
     }
   }, [activeFunnel, setValue])
 
@@ -204,12 +210,15 @@ const FunnelSettingsFormSeo = ({ activeFunnel }: IFunnelSettingsFormSeo) => {
 
   useEffect(() => {
     if (activeFunnel) {
-      setValue('funnelPageName', activeFunnel.funnelSeo.pageName || '')
+      setValue('funnelPageName', activeFunnel.funnelSettings.seo.pageName || '')
       setValue(
         'funnelPageDescription',
-        activeFunnel.funnelSeo.pageDescription || ''
+        activeFunnel.funnelSettings.seo.pageDescription || ''
       )
-      setValue('funnelPageFavicon', activeFunnel.funnelSeo.pageFavicon || '')
+      setValue(
+        'funnelPageFavicon',
+        activeFunnel.funnelSettings.seo.pageFavicon || ''
+      )
     }
   }, [activeFunnel, setValue])
 
