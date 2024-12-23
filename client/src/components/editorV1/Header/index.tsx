@@ -1,20 +1,10 @@
 import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 
-import { Button, Segmented, Tooltip } from 'antd'
-import {
-  LuChartNoAxesCombined,
-  LuChevronLeft,
-  LuMonitor,
-  LuPalette,
-  LuPencilRuler,
-  LuPlay,
-  LuRedo,
-  LuSettings,
-  LuSmartphone,
-  LuTablet,
-  LuUndo
-} from 'react-icons/lu'
+import { Button, Tooltip } from 'antd'
+import { LuChevronLeft, LuPlay, LuRedo, LuUndo } from 'react-icons/lu'
+
+import { Navigation, ToggleResponsive } from '@/components'
 
 interface IHeader {}
 
@@ -50,43 +40,5 @@ export const Header = ({}: IHeader) => {
         </Button>
       </S.HeaderThird>
     </S.Header>
-  )
-}
-
-// ===================================
-
-interface INavigation {}
-
-const Navigation = ({}: INavigation) => {
-  return (
-    <Segmented
-      options={[
-        { label: 'Editor', value: 'editor', icon: <LuPencilRuler /> },
-        { label: 'Design', value: 'design', icon: <LuPalette /> },
-        {
-          label: 'Insights',
-          value: 'insights',
-          icon: <LuChartNoAxesCombined />
-        },
-        { label: 'Configurações', value: 'settings', icon: <LuSettings /> }
-      ]}
-    />
-  )
-}
-
-// ===================================
-
-export type ResponsiveTypes = 'desktop' | 'tablet' | 'mobile'
-
-interface IToggleResponsive {}
-
-const ToggleResponsive = ({}: IToggleResponsive) => {
-  return (
-    <Segmented
-      options={[
-        { value: 'desktop', icon: <LuMonitor /> },
-        { value: 'mobile', icon: <LuSmartphone /> }
-      ]}
-    />
   )
 }

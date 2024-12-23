@@ -28,6 +28,7 @@ export const GoBackButton = styled.button`
   align-items: center;
   width: ${Global.height.editorV1Header};
   height: 100%;
+  padding-right: 2px;
   margin-right: 10px;
   cursor: pointer;
 
@@ -42,6 +43,7 @@ export const GoBackButton = styled.button`
 
   background-color: transparent;
   border-right: 1px solid ${() => useToken().token.colorBorder};
+  background-color: ${() => useToken().token.colorBgLayout};
 
   &:hover {
     svg {

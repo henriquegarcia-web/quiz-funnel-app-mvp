@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 
 import { Button, Tooltip } from 'antd'
@@ -15,6 +16,8 @@ interface IFunnelItem {
 }
 
 const FunnelItem = ({ funnel }: IFunnelItem) => {
+  const navigate = useNavigate()
+
   return (
     <S.FunnelItem>
       <S.FunnelItemLegends>
@@ -30,7 +33,10 @@ const FunnelItem = ({ funnel }: IFunnelItem) => {
           />
         </Tooltip>
         <Tooltip placement="bottomRight" title="Editar">
-          <Button icon={<LuPencilRuler />} onClick={() => {}} />
+          <Button
+            icon={<LuPencilRuler />}
+            onClick={() => navigate(`/admin/editor/${funnel.funnelId}`)}
+          />
         </Tooltip>
         <Tooltip placement="bottomRight" title="Insights">
           <Button icon={<LuChartNoAxesCombined />} onClick={() => {}} />

@@ -13,7 +13,8 @@ export const Global = {
   },
   height: {
     dashboardHeader: '80px',
-    editorV1Header: '65px'
+    editorV1Header: '65px',
+    editorV1PanelHeader: '35px'
   },
   radius: {
     container: '10px',
@@ -102,7 +103,7 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: none !important;
 
     &.ant-btn-lg {
-      font-size: ${Fonts.xs} ;
+      font-size: ${Fonts.xs};
       
       &.ant-btn-primary {
         height: 38px !important;
