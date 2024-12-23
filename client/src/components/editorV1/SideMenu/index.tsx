@@ -15,7 +15,6 @@ import {
   useSortable
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { Tabs } from 'antd'
 import type { TabsProps } from 'antd'
 import { LuGripVertical } from 'react-icons/lu'
 

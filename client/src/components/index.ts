@@ -16,6 +16,8 @@ import { Header as EditorV1Header } from './editorV1/Header'
 import Navigation from './editorV1/Navigation'
 import ToggleResponsive from './editorV1/ToggleResponsive'
 import SideMenu from './editorV1/SideMenu'
+import ComponentsMenu from './editorV1/ComponentsMenu'
+import StepEditor from './editorV1/StepEditor'
 
 // ================================================== QUIZ
 
@@ -36,5 +38,7 @@ export {
   FunnelItem,
   Navigation,
   ToggleResponsive,
-  SideMenu
+  SideMenu,
+  ComponentsMenu,
+  StepEditor
 }
