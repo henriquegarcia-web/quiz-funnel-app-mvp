@@ -12,4 +12,13 @@ export const StepEditor = styled.div`
   flex-direction: column;
   width: 100%;
   height: calc(100% - ${Global.height.editorV1PanelHeader});
+  padding: 10px;
+`
+
+// ======================================== COMPONENT EDITOR FORM
+
+export const ComponentEditorFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `

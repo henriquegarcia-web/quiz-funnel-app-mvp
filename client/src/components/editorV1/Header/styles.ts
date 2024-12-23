@@ -20,6 +20,10 @@ export const HeaderFirst = styled.div`
   align-items: center;
   column-gap: 6px;
   height: 100%;
+
+  .ant-btn:not(.ant-btn-icon-only) {
+    column-gap: 4px;
+  }
 `
 
 export const GoBackButton = styled.button`
@@ -34,7 +38,7 @@ export const GoBackButton = styled.button`
 
   svg {
     transition: 0.2s;
-    opacity: 0.8;
+    opacity: 0.4;
 
     font-size: ${Fonts.h3};
 

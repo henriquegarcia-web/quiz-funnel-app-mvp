@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 
 import { Button, Tooltip } from 'antd'
-import { LuChevronLeft, LuPlay, LuRedo, LuUndo } from 'react-icons/lu'
+import { LuChevronLeft, LuPlay, LuPlus, LuRedo, LuUndo } from 'react-icons/lu'
 
 import { Navigation, ToggleResponsive } from '@/components'
 
@@ -17,6 +17,10 @@ export const Header = ({}: IHeader) => {
         <S.GoBackButton onClick={() => navigate('/admin')}>
           <LuChevronLeft />
         </S.GoBackButton>
+        <Button size="large" onClick={() => {}}>
+          <LuPlus />
+          Nova Etapa
+        </Button>
         <Tooltip placement="bottomRight" title="Disfazer">
           <Button size="large" icon={<LuUndo />} onClick={() => {}} />
         </Tooltip>

@@ -36,5 +36,11 @@ export const ComponentsMenuWrapper = styled.div`
     svg {
       font-size: ${Fonts.small};
     }
+
+    background-color: ${() => useToken().token.colorFill};
+
+    &:hover {
+      background-color: ${() => useToken().token.colorFill} !important;
+    }
   }
 `

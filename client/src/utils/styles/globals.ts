@@ -104,9 +104,11 @@ const GlobalStyle = createGlobalStyle`
 
     &.ant-btn-lg {
       font-size: ${Fonts.xs};
+      line-height: ${Fonts.xs};
       
       &.ant-btn-primary {
         height: 38px !important;
+        padding-top: 8px;      
       }
     }
 

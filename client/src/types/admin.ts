@@ -57,3 +57,12 @@ export const CreateFunnelSchema = Yup.object().shape({
 })
 
 export type ICreateFunnelFormData = Yup.InferType<typeof CreateFunnelSchema>
+
+// =============================================== STEP
+
+export const StepEditorSchema = Yup.object().shape({
+  stepName: Yup.string().required('Título da etapa é obrigatório'),
+  stepActive: Yup.boolean()
+})
+
+export type IStepEditorFormData = Yup.InferType<typeof StepEditorSchema>

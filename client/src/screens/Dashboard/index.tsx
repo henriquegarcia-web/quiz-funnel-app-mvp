@@ -1,10 +1,10 @@
+import { useState } from 'react'
 import * as S from './styles'
 
 import { Button, Modal } from 'antd'
 
 import { CreateFunnelForm, DashboardHeader, FunnelItem } from '@/components'
 import { MOCK_FUNNELS_LIST } from '@/data/mock'
-import { useState } from 'react'
 
 interface IDashboardScreen {}
 

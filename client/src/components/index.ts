@@ -2,6 +2,7 @@
 
 import AdminSignInForm from './forms/AdminSignInForm'
 import CreateFunnelForm from './forms/CreateFunnelForm'
+import StepEditorForm from './forms/StepEditorForm'
 
 // ================================================== ADMIN
 
@@ -40,5 +41,6 @@ export {
   ToggleResponsive,
   SideMenu,
   ComponentsMenu,
-  StepEditor
+  StepEditor,
+  StepEditorForm
 }

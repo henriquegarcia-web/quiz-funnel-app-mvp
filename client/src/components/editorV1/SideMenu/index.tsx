@@ -1,4 +1,4 @@
-import { cloneElement, useState } from 'react'
+import { cloneElement, useEffect, useState } from 'react'
 import * as S from './styles'
 
 import type { DragEndEvent } from '@dnd-kit/core'
@@ -17,6 +17,7 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import type { TabsProps } from 'antd'
 import { LuGripVertical } from 'react-icons/lu'
+import { IFunnelStep, MOCK_FUNNELS_LIST } from '@/data/mock'
 
 interface DraggableTabPaneProps extends React.HTMLAttributes<HTMLDivElement> {
   'data-node-key': string
@@ -46,38 +47,13 @@ const DraggableTabNode: React.FC<Readonly<DraggableTabPaneProps>> = ({
   })
 }
 
-interface ISideMenu {}
+interface ISideMenu {
+  menus?: IFunnelStep[]
+  handleSetActiveView: (view: IFunnelStep) => void
+}
 
-const SideMenu = ({}: ISideMenu) => {
-  const [items, setItems] = useState<NonNullable<TabsProps['items']>>([
-    {
-      key: '1',
-      label: (
-        <>
-          <LuGripVertical /> Tab 1
-        </>
-      ),
-      children: null
-    },
-    {
-      key: '2',
-      label: (
-        <>
-          <LuGripVertical /> Tab 2
-        </>
-      ),
-      children: null
-    },
-    {
-      key: '3',
-      label: (
-        <>
-          <LuGripVertical /> Tab 3
-        </>
-      ),
-      children: null
-    }
-  ])
+const SideMenu = ({ menus, handleSetActiveView }: ISideMenu) => {
+  const [items, setItems] = useState<NonNullable<TabsProps['items']>>([])
 
   const sensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 10 }
@@ -93,10 +69,36 @@ const SideMenu = ({}: ISideMenu) => {
     }
   }
 
+  const onTabChange = (activeKey: string) => {
+    const activeStep = menus?.find((menu) => menu.stepId === activeKey)
+    if (activeStep) {
+      handleSetActiveView(activeStep)
+    }
+  }
+
+  useEffect(() => {
+    if (!menus) {
+      setItems([])
+      return
+    }
+    const formattedRoles = menus.map((menu: IFunnelStep) => ({
+      key: menu.stepId,
+      label: (
+        <>
+          <LuGripVertical /> {menu.stepName}
+        </>
+      ),
+      children: null
+    }))
+
+    setItems(formattedRoles)
+  }, [menus])
+
   return (
     <S.SideMenu
       tabPosition="left"
       items={items}
+      onChange={onTabChange}
       renderTabBar={(tabBarProps, DefaultTabBar) => (
         <DndContext
           sensors={[sensor]}

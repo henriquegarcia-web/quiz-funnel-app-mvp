@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { Form, theme } from 'antd'
+import { Form, Typography, theme } from 'antd'
 import { Global } from './globals'
 import Fonts from './fonts'
 
 const { useToken } = theme
+const { Paragraph, Text, Link } = Typography
 
 export const Screen = styled.main`
   width: 100%;
@@ -115,4 +116,32 @@ export const FormattedForm = styled(Form)`
       font-size: 12px;
     }
   }
+`
+
+// ========================================================
+
+export const StepEditorWrapper = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  width: 100%;
+  padding: 15px;
+  border-radius: ${Global.radius.card};
+
+  border: 1px solid ${() => useToken().token.colorBorder};
+`
+
+export const StepEditorWrapperHeader = styled(Text)`
+  opacity: 0.7;
+
+  font-size: ${Fonts.xxs};
+  line-height: ${Fonts.xxs};
+  font-weight: 500;
+  text-transform: uppercase;
+`
+
+export const StepEditorWrapperContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `
