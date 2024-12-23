@@ -17,7 +17,7 @@ export const ComponentsMenu = styled.div`
 export const ComponentsMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 5px;
+  row-gap: 6px;
   width: 100%;
   height: fit-content;
   padding: 10px;

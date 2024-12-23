@@ -22,10 +22,20 @@ export const Header = ({}: IHeader) => {
           Nova Etapa
         </Button>
         <Tooltip placement="bottomRight" title="Disfazer">
-          <Button size="large" icon={<LuUndo />} onClick={() => {}} />
+          <Button
+            size="large"
+            icon={<LuUndo />}
+            onClick={() => {}}
+            disabled={true}
+          />
         </Tooltip>
         <Tooltip placement="bottomRight" title="Refazer">
-          <Button size="large" icon={<LuRedo />} onClick={() => {}} />
+          <Button
+            size="large"
+            icon={<LuRedo />}
+            onClick={() => {}}
+            disabled={true}
+          />
         </Tooltip>
       </S.HeaderFirst>
       <S.HeaderSecond>
@@ -34,7 +44,12 @@ export const Header = ({}: IHeader) => {
       <S.HeaderThird>
         <ToggleResponsive />
         <Tooltip placement="bottomRight" title="Vizualizar">
-          <Button size="large" icon={<LuPlay />} onClick={() => {}} />
+          <Button
+            size="large"
+            icon={<LuPlay />}
+            onClick={() => {}}
+            disabled={true}
+          />
         </Tooltip>
         <Button size="large" onClick={() => {}}>
           Salvar

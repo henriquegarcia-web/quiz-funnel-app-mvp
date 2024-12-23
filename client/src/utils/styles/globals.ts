@@ -112,6 +112,9 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
+    &:disabled {
+      background-color: rgba(31, 39, 61, 0.4);
+    }
   }
 
 
