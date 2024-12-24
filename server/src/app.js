@@ -53,6 +53,11 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// Rota de teste
+app.get('/teste', (req, res) => {
+  res.status(200).json({ message: 'Servidor está funcionando corretamente!' })
+})
+
 // Routes
 app.use('/api', routes)
 

@@ -5,10 +5,30 @@ const PORT = process.env.PORT || 5000
 
 connectDatabase()
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Servidor ativo, porta: ${PORT}`)
-    })
+    if (process.env.NODE_ENV !== 'production') {
+      app.listen(PORT, () => {
+        console.log(`Servidor ativo, porta: ${PORT}`)
+      })
+    }
   })
   .catch((err) => {
     console.error('Falha ao tentar se conectar a database', err)
   })
+
+// Exportar o app para o Vercel
+export default app
+
+// import app from './app.js'
+// import { connectDatabase } from './config/database.js'
+
+// const PORT = process.env.PORT || 5000
+
+// connectDatabase()
+//   .then(() => {
+//     app.listen(PORT, () => {
+//       console.log(`Servidor ativo, porta: ${PORT}`)
+//     })
+//   })
+//   .catch((err) => {
+//     console.error('Falha ao tentar se conectar a database', err)
+//   })
