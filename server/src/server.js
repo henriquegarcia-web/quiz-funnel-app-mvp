@@ -15,7 +15,6 @@ connectDatabase()
     console.error('Falha ao tentar se conectar a database', err)
   })
 
-// Exportar o app para o Vercel
 export default app
 
 // import app from './app.js'
