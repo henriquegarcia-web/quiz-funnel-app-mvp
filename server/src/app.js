@@ -4,6 +4,7 @@ import cors from 'cors'
 import routes from './routes/index.js'
 
 const allowedOrigins = [
+  'https://quiz-funnel-mvp-client.vercel.app',
   'http://localhost:5173',
   process.env.PRODUCTION_CLIENT_URL
 ]
