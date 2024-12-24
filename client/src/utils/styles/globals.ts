@@ -10,7 +10,8 @@ export const Global = {
   },
   wrapper: {
     dashboard: '860px',
-    editorV1: '800px'
+    editorV1: '800px',
+    insights: '1100px'
   },
   height: {
     dashboardHeader: '80px',

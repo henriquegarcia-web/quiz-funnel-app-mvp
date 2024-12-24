@@ -21,6 +21,8 @@ import ToggleResponsive from './editorV1/ToggleResponsive'
 import SideMenu from './editorV1/SideMenu'
 import ComponentsMenu from './editorV1/ComponentsMenu'
 import StepEditor from './editorV1/StepEditor'
+import CanvasV1 from './editorV1/CanvasV1'
+import ViewCanvas from './editorV1/ViewCanvas'
 
 // ================================================== QUIZ
 
@@ -46,5 +48,7 @@ export {
   StepEditor,
   StepEditorForm,
   FunnelDesignForm,
-  FunnelSettingsForm
+  FunnelSettingsForm,
+  CanvasV1,
+  ViewCanvas
 }
