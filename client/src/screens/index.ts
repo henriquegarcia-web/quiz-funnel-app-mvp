@@ -1,6 +1,9 @@
-import AdminAuthScreen from './AdminAuth'
+import SignInScreen from './SignIn'
+import SignUpScreen from './SignUp'
 import DashboardScreen from './Dashboard'
 import InsightsScreen from './Insights'
+import CheckoutV1Screen from './CheckoutV1'
+import LandingPageScreen from './LandingPage'
 
 import EditorV1 from './EditorV1'
 import EditorView from './EditorV1/views/EditorView'
@@ -11,7 +14,8 @@ import InsightsView from './EditorV1/views/InsightsView'
 import QuizV1 from './QuizV1'
 
 export {
-  AdminAuthScreen,
+  SignInScreen,
+  SignUpScreen,
   DashboardScreen,
   InsightsScreen,
   EditorV1,
@@ -19,5 +23,7 @@ export {
   DesignView,
   SettingsView,
   InsightsView,
-  QuizV1
+  QuizV1,
+  CheckoutV1Screen,
+  LandingPageScreen
 }

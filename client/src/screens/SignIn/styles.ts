@@ -1,14 +1,14 @@
 import styled from 'styled-components'
-import { Screen, AuthContainer as Container } from '@/utils/styles/common'
+import { Screen, AuthContainer } from '@/utils/styles/common'
 
-export const AdminAuthScreen = styled(Screen)`
+export const SignInScreen = styled(Screen)`
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0 25px;
 `
 
-export const AuthContainer = styled(Container)`
+export const SignInContainer = styled(AuthContainer)`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@ export const AuthContainer = styled(Container)`
   padding: 25px;
 `
 
-export const AuthContainerHeader = styled.div`
+export const SignInContainerHeader = styled.div`
   position: absolute;
   bottom: 100%;
   left: 50%;

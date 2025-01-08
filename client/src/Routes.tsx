@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import {
-  AdminAuthScreen,
+  SignUpScreen,
   DashboardScreen,
   InsightsScreen,
   EditorV1,
-  QuizV1
+  QuizV1,
+  LandingPageScreen,
+  CheckoutV1Screen,
+  SignInScreen
 } from '@/screens'
 import { useAdminAuth } from '@/contexts/AdminAuthProvider'
 
@@ -22,18 +25,37 @@ const AppRoutes = () => {
       <Routes>
         {/* =============================================================== */}
 
-        <Route path="/" element={<Navigate to="/" />} />
         <Route path="*" element={<Navigate to="/" />} />
 
         {/* =============================================================== */}
 
-        <Route path="/" element={<QuizV1 />} />
+        <Route path="/" element={<LandingPageScreen />} />
+
+        <Route path="/quiz/:quizId" element={<QuizV1 />} />
 
         <Route
-          path="/admin/entrar"
+          path="/entrar"
           element={
             <PublicRoute isAuthenticated={isAdminLogged}>
-              <AdminAuthScreen />
+              <SignInScreen />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/cadastro"
+          element={
+            <PublicRoute isAuthenticated={isAdminLogged}>
+              <SignUpScreen />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/checkout"
+          element={
+            <PublicRoute isAuthenticated={isAdminLogged}>
+              <CheckoutV1Screen />
             </PublicRoute>
           }
         />

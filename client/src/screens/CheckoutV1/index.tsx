@@ -2,9 +2,9 @@ import * as S from './styles'
 
 // import { useGetTemplate } from '@/hooks/data/useGetTemplate'
 
-interface IQuizV1 {}
+interface ICheckoutV1Screen {}
 
-const QuizV1 = ({}: IQuizV1) => {
+const CheckoutV1Screen = ({}: ICheckoutV1Screen) => {
   // const {
   //   data: dataTemplate,
   //   error: errorTemplate,
@@ -12,7 +12,7 @@ const QuizV1 = ({}: IQuizV1) => {
   //   isLoading
   // } = useGetTemplate()
 
-  return <S.QuizV1>Quiz</S.QuizV1>
+  return <S.CheckoutV1Screen></S.CheckoutV1Screen>
 }
 
-export default QuizV1
+export default CheckoutV1Screen
