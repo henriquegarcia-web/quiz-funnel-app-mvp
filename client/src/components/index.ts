@@ -9,7 +9,9 @@ import FunnelSettingsForm from './forms/FunnelSettingsForm'
 // ================================================== ADMIN
 
 import { Header as DashboardHeader } from './admin/Header'
+import { SideMenu as DashboardSideMenu } from './admin/SideMenu'
 
+import ViewHeader from './admin/ViewHeader'
 import FunnelItem from './admin/FunnelItem'
 
 // ================================================== EDITOR V1
@@ -50,5 +52,7 @@ export {
   FunnelDesignForm,
   FunnelSettingsForm,
   CanvasV1,
-  ViewCanvas
+  ViewCanvas,
+  DashboardSideMenu,
+  ViewHeader
 }

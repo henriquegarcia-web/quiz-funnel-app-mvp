@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 
 import { toast } from 'react-toastify'
 import { useQueryClient } from '@tanstack/react-query'
@@ -11,6 +17,7 @@ import {
   useToggleAdminBlock
 } from '@/hooks/data/useAdmin'
 import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { ADMIN_SIDE_MENU_ITEMS, ADMIN_MENU_ITEMS, IMenu } from '@/data/admin'
 
 // ------------------------------------------------------------------------
 
@@ -18,6 +25,7 @@ export type ThemeType = 'dark' | 'light'
 
 interface IAdminContextData {
   isOperationsLoading: boolean
+  activeMenu: IMenu | null
   handleRegisterAccess: (userData: {
     email: string
     role: string
@@ -27,6 +35,7 @@ interface IAdminContextData {
     userId: string,
     blockStatus: boolean
   ) => Promise<void>
+  handleMenuClick: (menu: IMenu | null) => void
 }
 
 // ------------------------------------------------------------------------
@@ -41,10 +50,19 @@ const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient()
 
   const [isOperationsLoading, setOperationsLoading] = useState<boolean>(false)
+  const [activeMenu, setActiveMenu] = useState<IMenu | null>(
+    ADMIN_SIDE_MENU_ITEMS[0]
+  )
 
   const { mutateAsync: registerAccess } = useRegisterAccess()
   const { mutateAsync: deleteAdmin } = useDeleteAdmin()
   const { mutateAsync: toggleAdminBlock } = useToggleAdminBlock()
+
+  // ============================================= SIDE MENU FUNCTIONS
+
+  const handleMenuClick = (menu: IMenu | null) => {
+    setActiveMenu(menu || null)
+  }
 
   // ============================================= USER ACCESS FUNCTIONS
 
@@ -111,11 +129,13 @@ const AdminProvider = ({ children }: { children: React.ReactNode }) => {
   const AdminContextData: IAdminContextData = useMemo(() => {
     return {
       isOperationsLoading,
+      activeMenu,
       handleRegisterAccess,
       handleDeleteAdmin,
-      handleToggleAdminBlock
+      handleToggleAdminBlock,
+      handleMenuClick // Agora o tipo está consistente com IAdminContextData
     }
-  }, [isOperationsLoading])
+  }, [isOperationsLoading, activeMenu])
 
   return (
     <AdminContext.Provider value={AdminContextData}>

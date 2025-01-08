@@ -9,9 +9,12 @@ export const Global = {
     mobile: '500px'
   },
   wrapper: {
-    dashboard: '860px',
+    dashboard: '1000px',
     editorV1: '800px',
     insights: '1100px'
+  },
+  width: {
+    dashboardMenu: '260px'
   },
   height: {
     dashboardHeader: '80px',
@@ -24,7 +27,7 @@ export const Global = {
     item: '6px'
   },
   spacing: {
-    page: '25px',
+    page: '20px',
     container: '25px',
     card: '20px',
     item: '15px'

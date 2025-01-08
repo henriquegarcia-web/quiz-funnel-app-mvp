@@ -7,10 +7,10 @@ interface IHeader {}
 export const Header = ({}: IHeader) => {
   return (
     <S.Header>
-      <S.HeaderWrapper>
+      <S.HeaderLogo>
         <Logo size="sm" />
-        <UserMenu />
-      </S.HeaderWrapper>
+      </S.HeaderLogo>
+      <UserMenu />
     </S.Header>
   )
 }

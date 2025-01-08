@@ -1,56 +1,30 @@
-import { useState } from 'react'
 import * as S from './styles'
 
-import { Button, Modal } from 'antd'
-
-import { CreateFunnelForm, DashboardHeader, FunnelItem } from '@/components'
-import { MOCK_FUNNELS_LIST } from '@/data/mock'
+import { DashboardHeader, DashboardSideMenu } from '@/components'
+import { useAdmin } from '@/contexts/AdminProvider'
+import { useEffect } from 'react'
 
 interface IDashboardScreen {}
 
 const DashboardScreen = ({}: IDashboardScreen) => {
-  const [isCreateFunnelModalOpen, setIsCreateFunnelModalOpen] = useState(false)
+  const { activeMenu } = useAdmin()
 
-  const handleOpenCreateFunnelModal = () => setIsCreateFunnelModalOpen(true)
-  const handleCloseCreateFunnelModal = () => setIsCreateFunnelModalOpen(false)
+  useEffect(() => {
+    console.log(activeMenu)
+  }, [activeMenu])
 
   return (
-    <>
-      <S.DashboardScreen>
-        <DashboardHeader />
-        <S.DashboardContent>
-          <S.DashboardWrapper>
-            <S.FunnelsListHeader>
-              <S.FunnelsListHeaderLabels>
-                <b>Dashboard</b>
-                <p>Crie, edite e visualize seus funis de venda abaixo</p>
-              </S.FunnelsListHeaderLabels>
-              <S.FunnelsListHeaderCtas>
-                <Button size="large" onClick={handleOpenCreateFunnelModal}>
-                  Novo Quiz
-                </Button>
-              </S.FunnelsListHeaderCtas>
-            </S.FunnelsListHeader>
-            <S.FunnelsList>
-              {MOCK_FUNNELS_LIST.map((funnel) => (
-                <FunnelItem key={funnel.funnelId} funnel={funnel} />
-              ))}
-            </S.FunnelsList>
-          </S.DashboardWrapper>
-        </S.DashboardContent>
-      </S.DashboardScreen>
-
-      <Modal
-        centered
-        title="Criar Funil (QUIZ)"
-        open={isCreateFunnelModalOpen}
-        footer={null}
-        onCancel={handleCloseCreateFunnelModal}
-        onClose={handleCloseCreateFunnelModal}
-      >
-        <CreateFunnelForm />
-      </Modal>
-    </>
+    <S.DashboardScreen>
+      <DashboardHeader />
+      <S.DashboardContent>
+        <DashboardSideMenu />
+        <S.DashboardView>
+          <S.DashboardViewWrapper>
+            {activeMenu?.menuComponent}
+          </S.DashboardViewWrapper>
+        </S.DashboardView>
+      </S.DashboardContent>
+    </S.DashboardScreen>
   )
 }
 

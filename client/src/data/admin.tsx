@@ -1,18 +1,26 @@
-import { createElement } from 'react'
+import React, { createElement } from 'react'
 
 import {
   LuLogOut,
   LuChartNoAxesCombined,
   LuPalette,
   LuPencilRuler,
-  LuSettings
+  LuSettings,
+  LuCircleUser,
+  LuCircleDollarSign,
+  LuPanelsTopLeft,
+  LuGalleryHorizontalEnd,
+  LuGlobe
 } from 'react-icons/lu'
-import type { MenuProps } from 'antd'
 
 import EditorView from '@/screens/EditorV1/views/EditorView'
 import DesignView from '@/screens/EditorV1/views/DesignView'
 import InsightsView from '@/screens/EditorV1/views/InsightsView'
 import SettingsView from '@/screens/EditorV1/views/SettingsView'
+
+import QuizBuilder from '@/screens/Dashboard/views/QuizBuilder'
+import PageBuilder from '@/screens/Dashboard/views/PageBuilder'
+import MyAccount from '@/screens/Dashboard/views/MyAccount'
 
 // ============================= ROLES
 
@@ -52,28 +60,66 @@ const ADMIN_ROLES: IRole[] = [
 
 // ============================= ADMIN MENU ITEMS
 
-const ADMIN_MENU_ITEMS: MenuProps['items'] = [
+export interface IMenu {
+  menuKey: string
+  menuLabel: string
+  menuIcon: React.ReactNode
+  menuDisabled: boolean
+  menuComponent: React.ReactNode
+}
+
+const ADMIN_SIDE_MENU_ITEMS: IMenu[] = [
   {
-    key: 'admin_my_account',
-    label: 'Minha Conta'
+    menuKey: 'menu_quiz_builder',
+    menuLabel: 'Quiz Builder',
+    menuIcon: <LuGalleryHorizontalEnd />,
+    menuDisabled: false,
+    menuComponent: <QuizBuilder />
   },
   {
-    key: 'admin_settings',
-    label: 'Configurações',
-    disabled: true
-    // extra: '⌘P'
+    menuKey: 'menu_page_builder',
+    menuLabel: 'Page Builder',
+    menuIcon: <LuPanelsTopLeft />,
+    menuDisabled: true,
+    menuComponent: <PageBuilder />
   },
   {
-    key: 'admin_billings',
-    label: 'Pagamentos',
-    disabled: true
-    // extra: '⌘B'
+    menuKey: 'menu_hosting',
+    menuLabel: 'Hospedagens e Domínios',
+    menuIcon: <LuGlobe />,
+    menuDisabled: true,
+    menuComponent: <></>
+  }
+]
+
+const ADMIN_MENU_ITEMS: IMenu[] = [
+  {
+    menuKey: 'admin_my_account',
+    menuLabel: 'Minha Conta',
+    menuIcon: <LuCircleUser />,
+    menuDisabled: false,
+    menuComponent: <MyAccount />
   },
   {
-    key: 'admin_exit',
-    label: 'Sair',
-    icon: createElement(LuLogOut)
-    // extra: '⌘S',
+    menuKey: 'admin_settings',
+    menuLabel: 'Configurações',
+    menuIcon: <LuSettings />,
+    menuDisabled: true,
+    menuComponent: <></>
+  },
+  {
+    menuKey: 'admin_billings',
+    menuLabel: 'Pagamentos',
+    menuIcon: <LuCircleDollarSign />,
+    menuDisabled: true,
+    menuComponent: <></>
+  },
+  {
+    menuKey: 'admin_exit',
+    menuLabel: 'Sair',
+    menuIcon: createElement(LuLogOut),
+    menuDisabled: false,
+    menuComponent: <></>
   }
 ]
 
@@ -133,6 +179,7 @@ const FUNNEL_FLOW_TYPES: IFunnelFlowType[] = [
 
 export {
   ADMIN_ROLES,
+  ADMIN_SIDE_MENU_ITEMS,
   ADMIN_MENU_ITEMS,
   EDITORV1_NAVIGATION_ITEMS,
   FUNNEL_FLOW_TYPES

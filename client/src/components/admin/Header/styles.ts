@@ -6,16 +6,17 @@ import { DashboardHeader } from '@/utils/styles/common'
 
 export const Header = styled(DashboardHeader)`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: ${Global.height.dashboardHeader};
 `
 
-export const HeaderWrapper = styled.div`
+export const HeaderLogo = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: center; */
   align-items: center;
   width: 100%;
-  max-width: ${Global.wrapper.dashboard};
+  max-width: ${Global.width.dashboardMenu};
   height: 100%;
 `

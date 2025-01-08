@@ -21,8 +21,15 @@ const UserMenu = ({}: IUserMenu) => {
     }
   }
 
+  const formattedMenus: MenuProps['items'] = ADMIN_MENU_ITEMS.map((menu) => ({
+    key: menu.menuKey,
+    label: menu.menuLabel,
+    icon: menu.menuIcon,
+    disabled: menu.menuDisabled
+  }))
+
   const menuProps = {
-    items: ADMIN_MENU_ITEMS || [],
+    items: formattedMenus || [],
     onClick: handleMenuClick
   }
 
