@@ -1,4 +1,5 @@
 import * as Yup from 'yup'
+import { IFunnel } from '@/data/mock'
 
 export type ThemeType = 'dark' | 'light'
 export type RolesType = 'user' | 'admin' | 'developer'
@@ -45,7 +46,7 @@ export interface IAdminAccountData {
     firstName: string
     lastName: string
     dateOfBirth: string
-    gender: GendersType
+    gender: GendersType 
   }
   contactInfo: {
     email: string
@@ -54,6 +55,7 @@ export interface IAdminAccountData {
   }
   preferences: IUserPreferences
   subscription: IUserSubscription
+  funnels: IFunnel[]
   blocked: boolean
   role: RolesType
 }

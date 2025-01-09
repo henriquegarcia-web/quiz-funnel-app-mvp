@@ -2,9 +2,22 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 
-import { Button, Input, Form, DatePicker, Select, Steps } from 'antd'
+import {
+  Button,
+  Input,
+  Form,
+  DatePicker,
+  Select,
+  Steps,
+  ConfigProvider
+} from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+import locale from 'antd/locale/pt_BR'
+import dayjs, { Dayjs } from 'dayjs'
+import 'dayjs/locale/pt-br'
+dayjs.locale('pt-br')
 
 import { useAdminAuth } from '@/contexts/AdminAuthProvider'
 import { SignUpSchema, ISignUpFormData } from '@/types/admin'
@@ -16,22 +29,33 @@ const steps = [
   {
     id: 'basics',
     title: 'Básico',
-    content: null
+    fields: [
+      'personalInfo.firstName',
+      'personalInfo.lastName',
+      'personalInfo.dateOfBirth',
+      'personalInfo.gender'
+    ]
   },
   {
     id: 'contact',
     title: 'Contato',
-    content: null
+    fields: ['contactInfo.email', 'contactInfo.phone']
   },
   {
     id: 'address',
     title: 'Endereço',
-    content: null
+    fields: [
+      'contactInfo.address.street',
+      'contactInfo.address.city',
+      'contactInfo.address.state',
+      'contactInfo.address.postalCode',
+      'contactInfo.address.country'
+    ]
   },
   {
     id: 'password',
     title: 'Senha',
-    content: null
+    fields: ['password', 'confirmPassword']
   }
 ]
 
@@ -71,6 +95,9 @@ const SignUpForm = ({}: ISignUpForm) => {
 
   const { errors, isSubmitting, isValid } = formState
 
+  // Monitora os valores do formulário em tempo real
+  const formValues = watch()
+
   const onSubmit = async (data: ISignUpFormData) => {
     const success = await handleRegister({
       name: `${data.personalInfo.firstName} ${data.personalInfo.lastName}`,
@@ -83,17 +110,33 @@ const SignUpForm = ({}: ISignUpForm) => {
     }
   }
 
-  // ============================================
-
+  // Função para avançar para a próxima etapa
   const next = () => {
     setCurrent(current + 1)
   }
 
+  // Função para voltar à etapa anterior
   const prev = () => {
     setCurrent(current - 1)
   }
 
+  // Configuração de títulos das etapas para o componente Steps
   const items = steps.map((item) => ({ key: item.title, title: item.title }))
+
+  // Verifica se todos os campos da etapa atual estão preenchidos
+  const isCurrentStepComplete = () => {
+    const currentStepFields = steps[current].fields
+    return currentStepFields.every((field) => {
+      const fieldParts = field.split('.')
+      let value: any = formValues
+
+      fieldParts.forEach((part) => {
+        value = value?.[part]
+      })
+
+      return value !== undefined && value !== null && value !== ''
+    })
+  }
 
   return (
     <S.SignUpFormContainer>
@@ -139,7 +182,13 @@ const SignUpForm = ({}: ISignUpForm) => {
                   }
                   help={errors.personalInfo?.dateOfBirth?.message}
                 >
-                  <DatePicker {...field} placeholder="Data de nascimento" />
+                  <ConfigProvider locale={locale}>
+                    <DatePicker
+                      {...field}
+                      format="DD/MM/YYYY"
+                      placeholder="Data de nascimento"
+                    />
+                  </ConfigProvider>
                 </Form.Item>
               )}
             />
@@ -311,7 +360,9 @@ const SignUpForm = ({}: ISignUpForm) => {
         <S.SignUpFormFooter>
           {current > 0 && <Button onClick={() => prev()}>Voltar</Button>}
           {current < steps.length - 1 && (
-            <Button onClick={() => next()}>Próximo</Button>
+            <Button onClick={() => next()} disabled={!isCurrentStepComplete()}>
+              Próximo
+            </Button>
           )}
 
           {current === steps.length - 1 && (
