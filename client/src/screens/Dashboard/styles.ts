@@ -15,7 +15,6 @@ export const DashboardScreen = styled(Screen)`
 export const DashboardContent = styled.div`
   display: flex;
   justify-content: center;
-  column-gap: 15px;
   width: 100%;
   height: fit-content;
   min-height: calc(100vh - ${Global.height.dashboardHeader});
@@ -25,6 +24,7 @@ export const DashboardView = styled.div`
   display: flex;
   justify-content: center;
   width: calc(100% - ${Global.width.dashboardMenu});
+  padding: 20px;
 `
 
 export const DashboardViewWrapper = styled.div`

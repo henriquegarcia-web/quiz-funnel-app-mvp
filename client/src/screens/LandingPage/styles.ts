@@ -24,3 +24,5 @@ export const LandingPageCtas = styled.div`
   display: flex;
   column-gap: 10px;
 `
+
+

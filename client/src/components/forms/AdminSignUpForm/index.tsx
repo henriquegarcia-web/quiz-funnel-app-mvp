@@ -6,20 +6,21 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useAdminAuth } from '@/contexts/AdminAuthProvider'
-import { AdminSignInSchema, IAdminSignInFormData } from '@/types/admin'
+import { AdminSignUpSchema, IAdminSignUpFormData } from '@/types/admin'
 import { ChangeAuthMode } from '@/components'
 
-interface IAdminSignInForm {}
+interface IAdminSignUpForm {}
 
-const AdminSignInForm = ({}: IAdminSignInForm) => {
-  const { handleLogin } = useAdminAuth()
+const AdminSignUpForm = ({}: IAdminSignUpForm) => {
+  const { handleRegister } = useAdminAuth()
   const navigate = useNavigate()
 
   const { control, handleSubmit, formState, watch } =
-    useForm<IAdminSignInFormData>({
+    useForm<IAdminSignUpFormData>({
       mode: 'onBlur',
-      resolver: yupResolver(AdminSignInSchema),
+      resolver: yupResolver(AdminSignUpSchema),
       defaultValues: {
+        name: '',
         email: '',
         password: ''
       }
@@ -27,22 +28,36 @@ const AdminSignInForm = ({}: IAdminSignInForm) => {
 
   const { errors, isSubmitting, isValid } = formState
 
-  const onSubmit = async (data: IAdminSignInFormData) => {
-    const success = await handleLogin({
+  const onSubmit = async (data: IAdminSignUpFormData) => {
+    const success = await handleRegister({
+      name: data.name,
       email: data.email,
       password: data.password
     })
 
     if (success) {
-      navigate('/admin')
+      navigate('/checkout')
     }
   }
 
   return (
-    <S.AdminSignInForm
+    <S.AdminSignUpForm
       onSubmitCapture={handleSubmit(onSubmit)}
       layout="vertical"
     >
+      <Controller
+        name="name"
+        control={control}
+        render={({ field }) => (
+          <Form.Item
+            label="Nome"
+            validateStatus={errors.name ? 'error' : ''}
+            help={errors.name?.message}
+          >
+            <Input {...field} placeholder="Digite seu nome" />
+          </Form.Item>
+        )}
+      />
       <Controller
         name="email"
         control={control}
@@ -70,7 +85,7 @@ const AdminSignInForm = ({}: IAdminSignInForm) => {
         )}
       />
 
-      <ChangeAuthMode mode="signIn" />
+      <ChangeAuthMode mode="signUp" />
 
       <Button
         type="primary"
@@ -78,10 +93,10 @@ const AdminSignInForm = ({}: IAdminSignInForm) => {
         disabled={!isValid}
         loading={isSubmitting}
       >
-        Entrar
+        Criar Conta
       </Button>
-    </S.AdminSignInForm>
+    </S.AdminSignUpForm>
   )
 }
 
-export default AdminSignInForm
+export default AdminSignUpForm

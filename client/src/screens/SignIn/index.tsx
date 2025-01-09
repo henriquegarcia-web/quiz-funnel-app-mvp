@@ -15,6 +15,7 @@ const SignInScreen = ({}: ISignInScreen) => {
         <S.SignInContainerHeader>
           <Logo size="lg" />
         </S.SignInContainerHeader>
+        <S.SignInTitle>Entrar</S.SignInTitle>
         <AdminSignInForm />
       </S.SignInContainer>
     </S.SignInScreen>

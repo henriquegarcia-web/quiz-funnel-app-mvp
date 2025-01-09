@@ -1,6 +1,7 @@
 // ================================================== FORMS
 
 import AdminSignInForm from './forms/AdminSignInForm'
+import AdminSignUpForm from './forms/AdminSignUpForm'
 import CreateFunnelForm from './forms/CreateFunnelForm'
 import StepEditorForm from './forms/StepEditorForm'
 import FunnelDesignForm from './forms/FunnelDesignForm'
@@ -13,6 +14,7 @@ import { SideMenu as DashboardSideMenu } from './admin/SideMenu'
 
 import ViewHeader from './admin/ViewHeader'
 import FunnelItem from './admin/FunnelItem'
+import ChangeAuthMode from './admin/ChangeAuthMode'
 
 // ================================================== EDITOR V1
 
@@ -37,6 +39,7 @@ import UserMenu from './common/UserMenu'
 
 export {
   AdminSignInForm,
+  AdminSignUpForm,
   CreateFunnelForm,
   Logo,
   UserMenu,
@@ -54,5 +57,6 @@ export {
   CanvasV1,
   ViewCanvas,
   DashboardSideMenu,
-  ViewHeader
+  ViewHeader,
+  ChangeAuthMode
 }
