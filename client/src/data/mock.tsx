@@ -36,26 +36,47 @@ export interface IFunnelSeo {
   pageFavicon: string | null
 }
 
+export type LeadField = 'field_name' | 'field_email' | 'field_phone'
+
 export interface IFunnelSettings {
   general: {
     funnelName: string
+    funnelDescription: string
     funnelSlug: string
     funnelIsPublished: boolean
     funnelFlowType: 'flow_button' | 'flow_direct_click'
   }
   seo: IFunnelSeo
+  leadCapture: {
+    isRequired: boolean
+    fields: LeadField[]
+  }
+  tracking: {
+    pixelFacebook: string
+    googleAnalytics: string
+  }
+  redirectOnComplete: string
+  notifications: {
+    enabled: boolean
+    to: string[]
+  }
+}
+
+export interface IFunnelVariable {
+  variableName: string
+  variableValue: string
 }
 
 export interface IFunnelDesign {
-  general: {
-    funnelShowLogo: boolean
-    funnelShowProgress: boolean
-  }
   globalStyles: {
     borderRadius: number
     pageRowGap: number
+    primaryColor: string
     backgroundColor: string
-    colorPrimary: string
+    font: string
+    logo: string
+    showLogo: boolean
+    showProgressBar: boolean
   }
   globalModels: {
     title: IFunnelDesignFont
@@ -64,15 +85,57 @@ export interface IFunnelDesign {
     card: IFunnelDesignCard
     button: IFunnelDesignButton
   }
-  globalVariables: {}
+  globalVariables: IFunnelVariable[]
 }
 
-export interface IFunnelStep {
+export type FunnelStepType = 'question' | 'leadCapture' | 'custom'
+export type FunnelStepQuestionType = 'singleChoice' | 'multipleChoice'
+
+export interface IFunnelStepAnswer {
+  answerId: string
+  answerIcon: React.ReactNode | string
+  answerText: string
+}
+
+export interface IFunnelStepBase {
   stepIndex: number
   stepId: string
-  stepName: string
-  stepActive: boolean
-  stepCanGoBack: boolean
+  stepType: FunnelStepType
+  stepSettings: {
+    name: string
+    active: boolean
+    canGoBack: boolean
+  }
+  stepAddons: {
+    before: string | null
+    after: string | null
+  }
+}
+
+export interface IFunnelStepQuestion extends IFunnelStepBase {
+  stepType: 'question'
+  stepQuestion: {
+    type: FunnelStepQuestionType
+    text: string
+    answers: IFunnelStepAnswer[]
+  }
+}
+
+export interface IFunnelStepLeadCapture extends IFunnelStepBase {
+  stepType: 'leadCapture' 
+}
+
+export interface IFunnelStepCustom extends IFunnelStepBase {
+  stepType: 'custom'
+  customComponents: IComponent[]
+}
+
+export type IFunnelStep = IFunnelStepQuestion | IFunnelStepLeadCapture | IFunnelStepCustom
+
+
+export interface IFunnelAnalytics {
+  totalResponses: number
+  progressByStep: any
 }
 
 export interface IFunnel {
@@ -80,6 +143,7 @@ export interface IFunnel {
   funnelSettings: IFunnelSettings
   funnelDesign: IFunnelDesign
   funnelSteps: IFunnelStep[]
+  funnelAnalytics: IFunnelAnalytics
   createdAt: string
   lastEditionAt: string
 }
@@ -90,6 +154,8 @@ export const MOCK_FUNNELS_LIST: IFunnel[] = [
     funnelSettings: {
       general: {
         funnelName: 'Quiz de Personalidade',
+        funnelDescription:
+          'Descubra qual personalidade combina mais com o seu estilo de vida com este quiz rápido!',
         funnelSlug: 'quiz-personalidade',
         funnelIsPublished: true,
         funnelFlowType: 'flow_button'
@@ -99,18 +165,31 @@ export const MOCK_FUNNELS_LIST: IFunnel[] = [
         pageDescription:
           'Um quiz divertido para descobrir mais sobre você mesmo',
         pageFavicon: '/favicon-quiz.png'
+      },
+      leadCapture: {
+        isRequired: true,
+        fields: ['field_name', 'field_email', 'field_phone']
+      },
+      tracking: {
+        pixelFacebook: 'fbPixelIdAqui',
+        googleAnalytics: 'gaTrackingIdAqui'
+      },
+      redirectOnComplete: 'https://seusite.com/pagina-de-obrigado',
+      notifications: {
+        enabled: true,
+        to: ['vendas@seusite.com']
       }
     },
     funnelDesign: {
-      general: {
-        funnelShowLogo: true,
-        funnelShowProgress: true
-      },
       globalStyles: {
         borderRadius: 8,
         pageRowGap: 16,
-        backgroundColor: '#f5f5f5',
-        colorPrimary: '#2563eb'
+        primaryColor: '#F7941D',
+        backgroundColor: '#FFFFFF',
+        font: 'Arial',
+        logo: 'https://seusite.com/imagens/logo.png',
+        showLogo: true,
+        showProgressBar: true
       },
       globalModels: {
         title: {
@@ -168,31 +247,75 @@ export const MOCK_FUNNELS_LIST: IFunnel[] = [
           }
         }
       },
-      globalVariables: {}
+      globalVariables: []
     },
     funnelSteps: [
       {
         stepIndex: 0,
         stepId: 'step_intro',
-        stepName: 'Introdução',
-        stepActive: true,
-        stepCanGoBack: false
+        stepType: 'question',
+        stepSettings: {
+          name: 'Introdução',
+          active: true,
+          canGoBack: true
+        },
+        stepAddons: {
+          before: null,
+          after: null
+        },
+        stepQuestion: {
+          type: 'singleChoice',
+          text: 'Pergunta 1',
+          answers: [{ answerId: '', answerIcon: <></>, answerText: '' }]
+        }
       },
       {
-        stepIndex: 1,
+        stepIndex: 0,
         stepId: 'step_questions',
-        stepName: 'Perguntas',
-        stepActive: false,
-        stepCanGoBack: true
+        stepType: 'question',
+        stepSettings: {
+          name: 'Perguntas',
+          active: true,
+          canGoBack: true
+        },
+        stepAddons: {
+          before: null,
+          after: null
+        },
+        stepQuestion: {
+          type: 'singleChoice',
+          text: 'Pergunta 1',
+          answers: [{ answerId: '', answerIcon: <></>, answerText: '' }]
+        }
       },
       {
-        stepIndex: 2,
+        stepIndex: 0,
         stepId: 'step_result',
-        stepName: 'Resultado',
-        stepActive: false,
-        stepCanGoBack: false
+        stepType: 'question',
+        stepSettings: {
+          name: 'Resultado',
+          active: true,
+          canGoBack: true
+        },
+        stepAddons: {
+          before: null,
+          after: null
+        },
+        stepQuestion: {
+          type: 'singleChoice',
+          text: 'Pergunta 1',
+          answers: [{ answerId: '', answerIcon: <></>, answerText: '' }]
+        }
       }
     ],
+    funnelAnalytics: {
+      totalResponses: 0,
+      progressByStep: {
+        step_intro: true,
+        step_questions: true,
+        step_result: true
+      }
+    },
     createdAt: '15 de dezembro de 2024',
     lastEditionAt: '20/12/2024'
   }

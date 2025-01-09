@@ -1,7 +1,7 @@
 // ================================================== FORMS
 
-import AdminSignInForm from './forms/AdminSignInForm'
-import AdminSignUpForm from './forms/AdminSignUpForm'
+import SignInForm from './forms/SignInForm'
+import SignUpForm from './forms/SignUpForm'
 import CreateFunnelForm from './forms/CreateFunnelForm'
 import StepEditorForm from './forms/StepEditorForm'
 import FunnelDesignForm from './forms/FunnelDesignForm'
@@ -38,8 +38,8 @@ import UserMenu from './common/UserMenu'
 // ================================================== EXPORTS
 
 export {
-  AdminSignInForm,
-  AdminSignUpForm,
+  SignInForm,
+  SignUpForm,
   CreateFunnelForm,
   Logo,
   UserMenu,

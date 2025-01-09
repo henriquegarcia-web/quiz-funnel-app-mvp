@@ -1,6 +1,64 @@
 import * as Yup from 'yup'
 
-export type AdminThemeType = 'dark' | 'light'
+export type ThemeType = 'dark' | 'light'
+export type RolesType = 'user' | 'admin' | 'developer'
+
+export type GendersType = 'male' | 'female' | 'other' | 'prefer_not_to_say'
+export type LanguagesType = 'pt-BR'
+
+export type PaymentStatusType = 'paid' | 'pending' | 'failed'
+export type SubscriptionStatusType = 'active' | 'inactive' | 'cancelled'
+
+export interface IUserAddress {
+  street: string
+  city: string
+  state: string
+  postalCode: string
+  country: string
+}
+
+export interface IUserPreferences {
+  preferredLanguage: LanguagesType
+  theme: ThemeType
+}
+
+export interface IPayment {
+  paymentId: string
+  date: string
+  amount: number
+  currency: string
+  status: PaymentStatusType
+}
+
+export interface IUserSubscription {
+  planId: string
+  planName: string
+  startDate: string
+  endDate: string
+  status: SubscriptionStatusType
+  paymentHistory: IPayment[]
+}
+
+export interface IAdminAccountData {
+  id: string
+  personalInfo: {
+    firstName: string
+    lastName: string
+    dateOfBirth: string
+    gender: GendersType
+  }
+  contactInfo: {
+    email: string
+    phone?: string
+    address?: IUserAddress
+  }
+  preferences: IUserPreferences
+  subscription: IUserSubscription
+  blocked: boolean
+  role: RolesType
+}
+
+// ===================================================== SERVIÇOS
 
 export interface IRegisterAccessService {
   email: string
@@ -20,31 +78,66 @@ export interface ILoginService {
 
 // ===================================================== ENTRAR
 
-export const AdminSignInSchema = Yup.object().shape({
+export const SignInSchema = Yup.object().shape({
   email: Yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
   password: Yup.string().required('Senha é obrigatória')
 })
 
-export type IAdminSignInFormData = Yup.InferType<typeof AdminSignInSchema>
+export type ISignInFormData = Yup.InferType<typeof SignInSchema>
 
 // ===================================================== CADASTRO
 
-export const AdminSignUpSchema = Yup.object().shape({
-  name: Yup.string().required('Nome é obrigatório'),
-  email: Yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
-  password: Yup.string().required('Senha é obrigatória')
+export const SignUpSchema = Yup.object().shape({
+  personalInfo: Yup.object().shape({
+    firstName: Yup.string().required('Primeiro nome é obrigatório'),
+    lastName: Yup.string().required('Último nome é obrigatório'),
+    dateOfBirth: Yup.date().required('Data de nascimento é obrigatória'),
+    gender: Yup.mixed<GendersType>()
+      .oneOf(['male', 'female', 'other', 'prefer_not_to_say'])
+      .required('Gênero é obrigatório')
+  }),
+  contactInfo: Yup.object().shape({
+    email: Yup.string()
+      .email('E-mail inválido')
+      .required('E-mail é obrigatório'),
+    phone: Yup.string().optional(),
+    address: Yup.object()
+      .shape({
+        street: Yup.string().required('Rua é obrigatória'),
+        city: Yup.string().required('Cidade é obrigatória'),
+        state: Yup.string().required('Estado é obrigatório'),
+        postalCode: Yup.string().required('Código postal é obrigatório'),
+        country: Yup.string().required('País é obrigatório')
+      })
+      .optional()
+  }),
+  password: Yup.string().required('Senha é obrigatória'),
+  confirmPassword: Yup.string().required('Confirmar senha é obrigatório')
+  // preferences: Yup.object().shape({
+  //   preferredLanguage: Yup.mixed<LanguagesType>().oneOf(['pt-BR']).required('Idioma preferido é obrigatório'),
+  //   theme: Yup.mixed<ThemeType>().oneOf(['dark', 'light']).required('Tema é obrigatório')
+  // }),
+  // subscription: Yup.object().shape({
+  //   planId: Yup.string().required('ID do plano é obrigatório'),
+  //   planName: Yup.string().required('Nome do plano é obrigatório'),
+  //   startDate: Yup.date().required('Data de início é obrigatória'),
+  //   endDate: Yup.date().required('Data de término é obrigatória'),
+  //   status: Yup.mixed<SubscriptionStatusType>().oneOf(['active', 'inactive', 'cancelled']).required('Status da assinatura é obrigatório'),
+  //   paymentHistory: Yup.array().of(
+  //     Yup.object().shape({
+  //       paymentId: Yup.string().required('ID do pagamento é obrigatório'),
+  //       date: Yup.date().required('Data do pagamento é obrigatória'),
+  //       amount: Yup.number().required('Valor é obrigatório'),
+  //       currency: Yup.string().required('Moeda é obrigatória'),
+  //       status: Yup.mixed<PaymentStatusType>().oneOf(['paid', 'pending', 'failed']).required('Status do pagamento é obrigatório')
+  //     })
+  //   ).required('Histórico de pagamentos é obrigatório')
+  // }),
+  // blocked: Yup.boolean().required('Status de bloqueio é obrigatório'),
+  // role: Yup.mixed<RolesType>().oneOf(['user', 'admin', 'developer']).required('Papel é obrigatório'),
 })
 
-export type IAdminSignUpFormData = Yup.InferType<typeof AdminSignUpSchema>
-
-export interface IAdminAccountData {
-  id: string
-  name: string
-  email: string
-  blocked: boolean
-  role: string
-  theme: AdminThemeType
-}
+export type ISignUpFormData = Yup.InferType<typeof SignUpSchema>
 
 // =============================================== FUNNEL
 

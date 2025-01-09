@@ -2,7 +2,7 @@ import * as S from './styles'
 
 import { theme } from 'antd'
 
-import { AdminSignInForm, Logo } from '@/components'
+import { SignInForm, Logo } from '@/components'
 
 interface ISignInScreen {}
 
@@ -11,12 +11,12 @@ const SignInScreen = ({}: ISignInScreen) => {
 
   return (
     <S.SignInScreen>
-      <S.SignInContainer>
-        <S.SignInContainerHeader>
-          <Logo size="lg" />
-        </S.SignInContainerHeader>
+      <S.SignInContainerHeader>
+        <Logo size="lg" />
         <S.SignInTitle>Entrar</S.SignInTitle>
-        <AdminSignInForm />
+      </S.SignInContainerHeader>
+      <S.SignInContainer>
+        <SignInForm />
       </S.SignInContainer>
     </S.SignInScreen>
   )

@@ -129,6 +129,15 @@ export const FormattedForm = styled(Form)`
 
       font-size: 12px;
     }
+
+    .ant-picker-input input {
+      font-size: ${Fonts.xs};
+      padding: 3px 0px 3px 0px;
+    }
+
+    .ant-select-selection-placeholder {
+      font-size: ${Fonts.xs} !important;
+    }
   }
 
   textarea {

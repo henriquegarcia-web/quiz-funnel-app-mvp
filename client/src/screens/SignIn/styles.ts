@@ -8,33 +8,31 @@ const { Paragraph, Text, Link } = Typography
 
 export const SignInScreen = styled(Screen)`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  row-gap: 25px;
   padding: 0 25px;
 `
 
-export const SignInContainer = styled(AuthContainer)`
-  position: relative;
+export const SignInContainerHeader = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 25px;
-  width: 100%;
-  max-width: 340px;
-  padding: 25px;
-`
-
-export const SignInContainerHeader = styled.div`
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
 `
 
 export const SignInTitle = styled(Text)`
   font-size: ${Fonts.xxl};
   line-height: ${Fonts.xxl};
   font-weight: 400;
+`
+
+export const SignInContainer = styled(AuthContainer)`
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  width: 100%;
+  max-width: 340px;
+  padding: 25px;
 `
