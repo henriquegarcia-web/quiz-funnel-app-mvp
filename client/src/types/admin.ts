@@ -40,21 +40,21 @@ export interface IUserSubscription {
   paymentHistory: IPayment[]
 }
 
-export interface IAdminAccountData {
+export interface IUserAccountData {
   id: string
   personalInfo: {
     firstName: string
     lastName: string
     dateOfBirth: string
-    gender: GendersType 
+    gender: GendersType
   }
   contactInfo: {
     email: string
-    phone?: string
-    address?: IUserAddress
+    phone: string
+    address: IUserAddress
   }
   preferences: IUserPreferences
-  subscription: IUserSubscription
+  subscription: IUserSubscription | null
   funnels: IFunnel[]
   blocked: boolean
   role: RolesType
@@ -68,9 +68,15 @@ export interface IRegisterAccessService {
 }
 
 export interface IRegisterService {
-  name: string
+  firstName: string
+  lastName: string
+  dateOfBirth: Date
+  gender: GendersType
   email: string
+  phone: string
+  address: IUserAddress
   password: string
+  role?: string
 }
 
 export interface ILoginService {

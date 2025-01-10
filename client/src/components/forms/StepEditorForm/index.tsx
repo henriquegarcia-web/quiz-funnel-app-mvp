@@ -6,7 +6,7 @@ import { Input, Form, Switch, Button } from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { useUserAuth } from '@/contexts/UserAuthProvider'
 import { StepEditorSchema, IStepEditorFormData } from '@/types/admin'
 import {
   StepEditorWrapper,
@@ -29,7 +29,7 @@ const StepEditorForm = ({ stepActive }: IStepEditorForm) => {
       defaultValues: {
         stepName: '',
         stepActive: true,
-        stepCanGoBack: true,
+        stepCanGoBack: true
       }
     })
 
@@ -48,9 +48,9 @@ const StepEditorForm = ({ stepActive }: IStepEditorForm) => {
 
   useEffect(() => {
     if (stepActive) {
-      setValue('stepName', stepActive.stepName)
-      setValue('stepActive', stepActive.stepActive)
-      setValue('stepCanGoBack', stepActive.stepCanGoBack)
+      setValue('stepName', stepActive.stepSettings.name)
+      setValue('stepActive', stepActive.stepSettings.active)
+      setValue('stepCanGoBack', stepActive.stepSettings.canGoBack)
     }
   }, [stepActive, setValue])
 

@@ -1,19 +1,7 @@
 import api from '@/lib/fetch'
-import {
-  ILoginService,
-  IRegisterAccessService,
-  IRegisterService
-} from '@/types/admin'
+import { IRegisterService, ILoginService } from '@/types/admin'
 
-const registerAccess = async (adminData: IRegisterAccessService) => {
-  try {
-    const response = await api.post('/auth/register-access', adminData)
-    return response.data
-  } catch (error: any) {
-    throw error.response?.data || error
-  }
-}
-
+// Serviço de Cadastro
 const register = async (adminData: IRegisterService) => {
   try {
     const response = await api.post('/auth/register', adminData)
@@ -23,6 +11,7 @@ const register = async (adminData: IRegisterService) => {
   }
 }
 
+// Serviço de Login
 const login = async (credentials: ILoginService) => {
   try {
     const response = await api.post('/auth/login', credentials)
@@ -32,6 +21,7 @@ const login = async (credentials: ILoginService) => {
   }
 }
 
+// Verificar Token Atual
 const verifyToken = async (token: string) => {
   try {
     const response = await api.get('/auth/verify-token', {
@@ -43,4 +33,4 @@ const verifyToken = async (token: string) => {
   }
 }
 
-export { registerAccess, register, login, verifyToken }
+export { register, login, verifyToken }

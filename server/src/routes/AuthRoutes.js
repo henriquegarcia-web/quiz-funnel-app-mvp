@@ -1,14 +1,14 @@
 import { Router } from 'express'
 import {
-  registerAdmin,
-  loginAdmin,
+  registerUser,
+  loginUser,
   verifyToken
 } from '../controllers/AuthController.js'
 
 const router = Router()
 
-router.post('/register', registerAdmin)
-router.post('/login', loginAdmin)
+router.post('/register', registerUser)
+router.post('/login', loginUser)
 router.get('/verify-token', verifyToken)
 
 export default router

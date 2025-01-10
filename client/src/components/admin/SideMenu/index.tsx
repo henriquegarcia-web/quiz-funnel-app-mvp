@@ -3,13 +3,13 @@ import * as S from './styles'
 import { Menu } from 'antd'
 import {} from '@/components'
 import { ADMIN_SIDE_MENU_ITEMS, ADMIN_MENU_ITEMS, IMenu } from '@/data/admin'
-import { useAdmin } from '@/contexts/AdminProvider'
+import { useUser } from '@/contexts/UserProvider'
 import type { MenuProps } from 'antd'
 
 interface ISideMenu {}
 
 export const SideMenu = ({}: ISideMenu) => {
-  const { activeMenu, handleMenuClick } = useAdmin()
+  const { activeMenu, handleMenuClick } = useUser()
 
   const formattedMainMenus: MenuProps['items'] = ADMIN_SIDE_MENU_ITEMS.map(
     (menu) => ({

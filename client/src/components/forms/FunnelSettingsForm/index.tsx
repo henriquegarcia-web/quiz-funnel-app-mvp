@@ -6,7 +6,7 @@ import { Input, Form, Switch, Button, Collapse, Select } from 'antd'
 import type { CollapseProps } from 'antd'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { useUserAuth } from '@/contexts/UserAuthProvider'
 import {
   FunnelSettingsSchema_General,
   IFunnelSettingsFormData_General,

@@ -3,39 +3,39 @@ import { useMemo } from 'react'
 import { ConfigProvider, theme } from 'antd'
 
 import AppRoutes from '@/Routes'
-import { AdminAuthProvider, useAdminAuth } from '@/contexts/AdminAuthProvider'
-import { AdminProvider } from '@/contexts/AdminProvider'
+import { UserAuthProvider, useUserAuth } from '@/contexts/UserAuthProvider'
+import { UserProvider } from '@/contexts/UserProvider'
 import { EditorV1Provider } from '@/contexts/EditorV1Provider'
 import { themeTokens } from '@/utils/styles/theme'
 
 function App() {
   return (
-    <AdminAuthProvider>
-      <AdminProvider>
+    <UserAuthProvider>
+      <UserProvider>
         <EditorV1Provider>
           <AppThemed />
         </EditorV1Provider>
-      </AdminProvider>
-    </AdminAuthProvider>
+      </UserProvider>
+    </UserAuthProvider>
   )
 }
 
 export default App
 
 const AppThemed = () => {
-  const { adminAccountData } = useAdminAuth()
+  const { userAccountData } = useUserAuth()
 
   const themeSelected = useMemo(() => {
-    return adminAccountData?.theme === 'light'
+    return userAccountData?.preferences.theme === 'light'
       ? theme.defaultAlgorithm
       : theme.darkAlgorithm
-  }, [adminAccountData])
+  }, [userAccountData])
 
   const themeTokenSelected = useMemo(() => {
-    return adminAccountData?.theme === 'light'
+    return userAccountData?.preferences.theme === 'light'
       ? themeTokens.light
       : themeTokens.dark
-  }, [adminAccountData])
+  }, [userAccountData])
 
   return (
     <ConfigProvider

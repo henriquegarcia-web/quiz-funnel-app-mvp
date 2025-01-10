@@ -10,46 +10,42 @@ import { jwtDecode } from 'jwt-decode'
 import { toast } from 'react-toastify'
 
 import { useRegister, useLogin } from '@/hooks/data/useAuth'
-
 import { verifyToken } from '@/services/auth'
-import { IAdminAccountData } from '@/types/admin'
+import { IUserAccountData, IRegisterService } from '@/types/admin'
 
 // ------------------------------------------------------------------------
 
-interface IAdminAuthContextData {
-  isAdminLogged: boolean
-  adminAccountData: IAdminAccountData | null
+interface IUserAuthContextData {
+  isUserLogged: boolean
+  userAccountData: IUserAccountData | null
   handleLogin: (credentials: {
     email: string
     password: string
   }) => Promise<boolean>
-  handleRegister: (adminData: {
-    name: string
-    email: string
-    password: string
-  }) => Promise<boolean>
+  handleRegister: (userData: IRegisterService) => Promise<boolean>
   handleLogout: () => void
 }
 
 // ------------------------------------------------------------------------
 
-export const AdminAuthContext = createContext<IAdminAuthContextData>(
-  {} as IAdminAuthContextData
+export const UserAuthContext = createContext<IUserAuthContextData>(
+  {} as IUserAuthContextData
 )
 
-const AdminAuthProvider = ({ children }: { children: React.ReactNode }) => {
-  // ========================================================================
-
-  const [isAdminLogged, setIsAdminLogged] = useState<boolean>(false)
-  const [adminAccountData, setAdminAccountData] =
-    useState<IAdminAccountData | null>(null)
+const UserAuthProvider = ({ children }: { children: React.ReactNode }) => {
+  // Estados relacionados ao AuthContext
+  const [isUserLogged, setIsUserLogged] = useState<boolean>(false)
+  const [userAccountData, setUserAccountData] =
+    useState<IUserAccountData | null>(null)
 
   const [token, setToken] = useState<string | null>(null)
   const [tokenExpiration, setTokenExpiration] = useState<number | null>(null)
 
+  // Obtém as funções de registro e login nos hooks
   const { mutateAsync: register } = useRegister()
   const { mutateAsync: login } = useLogin()
 
+  // Função de login
   const handleLogin = async (credentials: {
     email: string
     password: string
@@ -60,7 +56,7 @@ const AdminAuthProvider = ({ children }: { children: React.ReactNode }) => {
       const decodedToken: any = jwtDecode(token)
       setTokenExpiration(decodedToken.exp * 1000)
 
-      await verifyCurrentAdmin(token)
+      await verifyCurrentUser(token)
 
       localStorage.setItem('token', token)
       localStorage.setItem(
@@ -68,29 +64,27 @@ const AdminAuthProvider = ({ children }: { children: React.ReactNode }) => {
         (decodedToken.exp * 1000).toString()
       )
       setToken(token)
-      setIsAdminLogged(true)
-
-      toast('Sucesso! Seja bem-vindo')
+      setIsUserLogged(true)
       return true
     } catch (error: any) {
-      console.error('Falha ao realizar login', error)
       toast(error.message)
       return false
     }
   }
 
-  const handleRegister = async (adminData: {
-    name: string
-    email: string
-    password: string
-  }) => {
+  // Função de registro
+  const handleRegister = async (userData: IRegisterService) => {
+    const defaultPayload = {
+      role: 'user'
+    }
+
     try {
-      const response = await register(adminData)
+      const response = await register({ ...userData, ...defaultPayload })
       const { token } = response
       const decodedToken: any = jwtDecode(token)
       setTokenExpiration(decodedToken.exp * 1000)
 
-      await verifyCurrentAdmin(token)
+      await verifyCurrentUser(token)
 
       localStorage.setItem('token', token)
       localStorage.setItem(
@@ -98,95 +92,89 @@ const AdminAuthProvider = ({ children }: { children: React.ReactNode }) => {
         (decodedToken.exp * 1000).toString()
       )
       setToken(token)
-      setIsAdminLogged(true)
-
+      setIsUserLogged(true)
       toast('Sucesso! Seja bem-vindo')
       return true
     } catch (error: any) {
-      console.error('Falha ao realizar cadastro', error)
       toast(error.message)
       return false
     }
   }
 
+  // Função de logout
   const handleLogout = () => {
     setToken(null)
-    setAdminAccountData(null)
+    setUserAccountData(null)
+    setIsUserLogged(false)
     setTokenExpiration(null)
     localStorage.removeItem('token')
     localStorage.removeItem('tokenExpiration')
-    setIsAdminLogged(false)
   }
 
-  const verifyCurrentAdmin = async (token: string) => {
+  // Função para verificar token e recuperar dados de user
+  const verifyCurrentUser = async (token: string) => {
     try {
       const response = await verifyToken(token)
-      setAdminAccountData(response)
+      setUserAccountData(response)
     } catch (error) {
-      console.error('Falha na verificação do Token', error)
       handleLogout()
     }
   }
 
+  // Checar validade do token armazenado
   const checkTokenValidity = () => {
     const storedToken = localStorage.getItem('token')
     const storedExpiration = localStorage.getItem('tokenExpiration')
 
     if (storedToken && storedExpiration) {
       const expirationTime = parseInt(storedExpiration)
-      const currentTime = Date.now()
-
-      if (currentTime > expirationTime) {
+      if (Date.now() > expirationTime) {
         handleLogout()
       } else {
         setToken(storedToken)
         setTokenExpiration(expirationTime)
-        verifyCurrentAdmin(storedToken)
-        setIsAdminLogged(true)
+        verifyCurrentUser(storedToken)
+        setIsUserLogged(true)
       }
     }
   }
 
+  // Setup inicial para verificar token
   useEffect(() => {
     checkTokenValidity()
 
     const interval = setInterval(() => {
-      const currentTime = Date.now()
-      if (tokenExpiration && currentTime > tokenExpiration) {
+      if (Date.now() > (tokenExpiration || 0)) {
         handleLogout()
-      } else if (token) {
-        verifyCurrentAdmin(token)
       }
-    }, 5 * 60 * 1000)
+    }, 1000 * 60 * 5) // A cada 5 minutos
 
     return () => clearInterval(interval)
-  }, [token, tokenExpiration])
+  }, [tokenExpiration, token])
 
-  // ========================================================================
-
-  const AdminAuthContextData: IAdminAuthContextData = useMemo(() => {
+  // Memorizar o valor do contexto
+  const UserAuthContextData: IUserAuthContextData = useMemo(() => {
     return {
-      isAdminLogged,
-      adminAccountData,
+      isUserLogged,
+      userAccountData,
       handleLogin,
       handleRegister,
       handleLogout
     }
-  }, [isAdminLogged, adminAccountData])
+  }, [isUserLogged, userAccountData])
 
   return (
-    <AdminAuthContext.Provider value={AdminAuthContextData}>
+    <UserAuthContext.Provider value={UserAuthContextData}>
       {children}
-    </AdminAuthContext.Provider>
+    </UserAuthContext.Provider>
   )
 }
 
-function useAdminAuth(): IAdminAuthContextData {
-  const context = useContext(AdminAuthContext)
-
-  if (!context) throw new Error('useAuth must be used within a AdminProvider')
-
+function useUserAuth(): IUserAuthContextData {
+  const context = useContext(UserAuthContext)
+  if (!context)
+    throw new Error('useUserAuth deve ser usado dentro de UserAuthProvider')
   return context
 }
 
-export { AdminAuthProvider, useAdminAuth }
+export { UserAuthProvider, useUserAuth }

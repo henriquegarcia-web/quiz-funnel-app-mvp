@@ -1,13 +1,13 @@
 import * as S from './styles'
 
 import { DashboardHeader, DashboardSideMenu } from '@/components'
-import { useAdmin } from '@/contexts/AdminProvider'
+import { useUser } from '@/contexts/UserProvider'
 import { useEffect } from 'react'
 
 interface IDashboardScreen {}
 
 const DashboardScreen = ({}: IDashboardScreen) => {
-  const { activeMenu } = useAdmin()
+  const { activeMenu } = useUser()
 
   useEffect(() => {
     console.log(activeMenu)

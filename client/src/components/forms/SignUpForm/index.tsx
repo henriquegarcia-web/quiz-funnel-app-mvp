@@ -19,7 +19,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import 'dayjs/locale/pt-br'
 dayjs.locale('pt-br')
 
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { useUserAuth } from '@/contexts/UserAuthProvider'
 import { SignUpSchema, ISignUpFormData } from '@/types/admin'
 import { ChangeAuthMode } from '@/components'
 
@@ -62,7 +62,7 @@ const steps = [
 interface ISignUpForm {}
 
 const SignUpForm = ({}: ISignUpForm) => {
-  const { handleRegister } = useAdminAuth()
+  const { handleRegister } = useUserAuth()
   const navigate = useNavigate()
 
   const [current, setCurrent] = useState(0)
@@ -100,8 +100,13 @@ const SignUpForm = ({}: ISignUpForm) => {
 
   const onSubmit = async (data: ISignUpFormData) => {
     const success = await handleRegister({
-      name: `${data.personalInfo.firstName} ${data.personalInfo.lastName}`,
+      firstName: data.personalInfo.firstName,
+      lastName: data.personalInfo.lastName,
+      dateOfBirth: data.personalInfo.dateOfBirth,
+      gender: data.personalInfo.gender,
       email: data.contactInfo.email,
+      phone: data.contactInfo.phone!,
+      address: data.contactInfo.address!,
       password: data.password
     })
 

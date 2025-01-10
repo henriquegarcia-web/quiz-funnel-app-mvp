@@ -3,7 +3,7 @@ import * as S from './styles'
 import { Avatar, Dropdown, theme } from 'antd'
 import type { MenuProps } from 'antd'
 
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { useUserAuth } from '@/contexts/UserAuthProvider'
 import { formatUsername } from '@/utils/functions/formatUsername'
 import useRoleDetails from '@/hooks/useRole'
 import { ADMIN_MENU_ITEMS } from '@/data/admin'
@@ -12,11 +12,11 @@ interface IUserMenu {}
 
 const UserMenu = ({}: IUserMenu) => {
   const { token } = theme.useToken()
-  const { adminAccountData, handleLogout } = useAdminAuth()
-  const roleDetails = useRoleDetails(adminAccountData?.role || '')
+  const { userAccountData, handleLogout } = useUserAuth()
+  const roleDetails = useRoleDetails(userAccountData?.role || '')
 
   const handleMenuClick: MenuProps['onClick'] = (e) => {
-    if (e.key === 'admin_exit') {
+    if (e.key === 'user_exit') {
       handleLogout()
     }
   }
@@ -33,20 +33,22 @@ const UserMenu = ({}: IUserMenu) => {
     onClick: handleMenuClick
   }
 
+  const name = `${userAccountData?.personalInfo.firstName} ${userAccountData?.personalInfo.lastName}`
+
   return (
     <Dropdown menu={menuProps} placement="bottomRight">
       <S.UserMenu>
         <S.UserMenuInfos>
           <S.UserWelcome>
-            {adminAccountData ? (
+            {userAccountData ? (
               <>
-                Olá, <b>{adminAccountData.name}</b>
+                Olá, <b>{name}</b>
               </>
             ) : (
               <>Carregando...</>
             )}
           </S.UserWelcome>
-          {adminAccountData && (
+          {userAccountData && (
             <S.UserRole color={roleDetails?.color}>
               {roleDetails?.label}
             </S.UserRole>
@@ -62,7 +64,7 @@ const UserMenu = ({}: IUserMenu) => {
             color: token.colorPrimaryText
           }}
         >
-          {formatUsername(adminAccountData?.name || '')}
+          {formatUsername(name || '')}
         </Avatar>
       </S.UserMenu>
     </Dropdown>

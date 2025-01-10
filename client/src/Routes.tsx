@@ -10,10 +10,10 @@ import {
   CheckoutV1Screen,
   SignInScreen
 } from '@/screens'
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { useUserAuth } from '@/contexts/UserAuthProvider'
 
 const AppRoutes = () => {
-  const { isAdminLogged } = useAdminAuth()
+  const { isUserLogged } = useUserAuth()
 
   return (
     <BrowserRouter
@@ -36,7 +36,7 @@ const AppRoutes = () => {
         <Route
           path="/entrar"
           element={
-            <PublicRoute isAuthenticated={isAdminLogged}>
+            <PublicRoute isAuthenticated={isUserLogged}>
               <SignInScreen />
             </PublicRoute>
           }
@@ -45,7 +45,7 @@ const AppRoutes = () => {
         <Route
           path="/cadastro"
           element={
-            <PublicRoute isAuthenticated={isAdminLogged}>
+            <PublicRoute isAuthenticated={isUserLogged}>
               <SignUpScreen />
             </PublicRoute>
           }
@@ -54,7 +54,7 @@ const AppRoutes = () => {
         <Route
           path="/checkout"
           element={
-            <PublicRoute isAuthenticated={isAdminLogged}>
+            <PublicRoute isAuthenticated={isUserLogged}>
               <CheckoutV1Screen />
             </PublicRoute>
           }
@@ -63,7 +63,7 @@ const AppRoutes = () => {
         <Route
           path="/admin"
           element={
-            <PrivateRoute isAuthenticated={isAdminLogged}>
+            <PrivateRoute isAuthenticated={isUserLogged}>
               <DashboardScreen />
             </PrivateRoute>
           }
@@ -72,7 +72,7 @@ const AppRoutes = () => {
         <Route
           path="/admin/insights/:funnelId"
           element={
-            <PrivateRoute isAuthenticated={isAdminLogged}>
+            <PrivateRoute isAuthenticated={isUserLogged}>
               <InsightsScreen />
             </PrivateRoute>
           }
@@ -81,7 +81,7 @@ const AppRoutes = () => {
         <Route
           path="/admin/editor/:funnelSlug"
           element={
-            <PrivateRoute isAuthenticated={isAdminLogged}>
+            <PrivateRoute isAuthenticated={isUserLogged}>
               <EditorV1 />
             </PrivateRoute>
           }

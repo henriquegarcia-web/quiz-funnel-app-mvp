@@ -92,11 +92,11 @@ const FunnelDesignFormGeneral = ({
     if (activeFunnel) {
       setValue(
         'funnelShowLogo',
-        activeFunnel.funnelDesign.general.funnelShowLogo
+        activeFunnel.funnelDesign.globalStyles.showLogo
       )
       setValue(
         'funnelShowProgress',
-        activeFunnel.funnelDesign.general.funnelShowProgress
+        activeFunnel.funnelDesign.globalStyles.showProgressBar
       )
     }
   }, [activeFunnel, setValue])
@@ -201,7 +201,7 @@ const FunnelDesignFormGlobalStyles = ({
       )
       setValue(
         'colorPrimary',
-        activeFunnel.funnelDesign.globalStyles.colorPrimary
+        activeFunnel.funnelDesign.globalStyles.primaryColor
       )
     }
   }, [activeFunnel, setValue])

@@ -1,6 +1,7 @@
+// Atualizando handleRegisterUser em AuthService.js
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import Admin from '../models/Admin.js'
+import User from '../models/User.js'
 import { authConfig } from '../config/auth.js'
 
 class AuthError extends Error {
@@ -10,103 +11,102 @@ class AuthError extends Error {
   }
 }
 
-const formatAdmin = (admin) => {
+const formatUser = (user) => {
   return {
-    id: admin._id,
-    email: admin.email,
-    name: admin.name,
-    blocked: admin.blocked,
-    firstAccess: admin.firstAccess,
-    role: admin.role,
-    theme: admin.theme
+    id: user._id,
+    personalInfo: user.personalInfo,
+    contactInfo: user.contactInfo,
+    preferences: user.preferences,
+    subscription: user.subscription,
+    funnels: user.funnels,
+    blocked: user.blocked,
+    role: user.role
   }
 }
 
-export const handleRegisterAdmin = async (adminData) => {
+export const handleRegisterUser = async (userData) => {
   try {
-    const existingAdmin = await Admin.findOne({ email: adminData.email })
-    if (!existingAdmin) {
-      throw new AuthError('USER_NOT_APROVED', 'Email não está aprovado.')
-    }
+    const existingUser = await User.findOne({
+      'contactInfo.email': userData.email
+    })
 
-    if (existingAdmin.blocked) {
-      throw new AuthError('USER_BLOCKED', 'Usuário bloqueado')
-    }
-
-    if (!existingAdmin.firstAccess) {
+    if (existingUser) {
       throw new AuthError('USER_EXISTS', 'Usuário já cadastrado.')
     }
 
-    const hashedPassword = await bcrypt.hash(adminData.password, 10)
+    const hashedPassword = await bcrypt.hash(userData.password, 10)
 
-    const updatedAdmin = await Admin.findOneAndUpdate(
-      { email: adminData.email },
-      {
-        ...adminData,
-        firstAccess: false,
-        password: hashedPassword
+    const newUser = new User({
+      personalInfo: {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        dateOfBirth: userData.dateOfBirth,
+        gender: userData.gender
       },
-      { new: true, runValidators: true }
-    )
+      contactInfo: {
+        email: userData.email,
+        phone: userData.phone,
+        address: userData.address
+      },
+      password: hashedPassword,
+      role: userData.role
+    })
 
-    if (!updatedAdmin) {
-      throw new AuthError('USER_UPDATE_FAILED', 'Falha ao atualizar o usuário.')
-    }
+    const savedUser = await newUser.save()
 
     const token = jwt.sign(
       {
-        id: updatedAdmin._id,
-        email: updatedAdmin.email,
-        name: updatedAdmin.name
+        id: savedUser._id,
+        email: savedUser.contactInfo.email,
+        name: `${savedUser.personalInfo.firstName} ${savedUser.personalInfo.lastName}`
       },
       authConfig.jwtSecret,
       { expiresIn: authConfig.jwtExpiresIn }
     )
 
-    const formattedAdmin = formatAdmin(updatedAdmin)
-
-    return { admin: formattedAdmin, token }
+    return { user: savedUser, token }
   } catch (error) {
-    if (error instanceof AuthError) {
-      throw error
-    }
-    throw new AuthError('REGISTRATION_ERROR', 'Erro ao registrar usuário')
+    throw new AuthError(
+      'REGISTRATION_ERROR',
+      error.message || 'Erro ao cadastrar usuário'
+    )
   }
 }
 
-export const handleLoginAdmin = async ({ email, password }) => {
-  const admin = await Admin.findOne({ email })
-  if (!admin) {
+export const handleLoginUser = async ({ email, password }) => {
+  const user = await User.findOne({ 'contactInfo.email': email })
+  if (!user) {
     throw new AuthError('USER_NOT_FOUND', 'Usuário não encontrado')
   }
 
-  if (admin.blocked) {
+  if (user.blocked) {
     throw new AuthError('USER_BLOCKED', 'Usuário bloqueado')
   }
 
-  if (admin.firstAccess) {
-    throw new AuthError(
-      'USER_FIRST_ACCESS',
-      'Esse é seu primeiro acesso, selecione o marcador "Primeiro Acesso"'
-    )
-  }
-
-  const isPasswordValid = await bcrypt.compare(password, admin.password)
+  const isPasswordValid = await bcrypt.compare(password, user.password)
   if (!isPasswordValid) {
     throw new AuthError('INVALID_PASSWORD', 'Senha inválida')
   }
 
-  const formattedAdmin = formatAdmin(admin)
+  const formattedUser = formatUser(user)
 
   const token = jwt.sign(
-    { id: admin._id, email: admin.email, name: admin.name },
+    {
+      id: user._id,
+      email: user.contactInfo.email,
+      name: `${user.personalInfo.firstName} ${user.personalInfo.lastName}`
+    },
     authConfig.jwtSecret,
     { expiresIn: authConfig.jwtExpiresIn }
   )
 
-  return { admin: formattedAdmin, token }
+  return { user: formattedUser, token }
 }
 
-export const handleGetAdminById = async (adminId) => {
-  return Admin.findById(adminId).select('-password')
+export const handleGetUserById = async (userId) => {
+  const user = await User.findById(userId).select('-password')
+  if (!user) {
+    throw new AuthError('USER_NOT_FOUND', 'Usuário não encontrado')
+  }
+  return formatUser(user)
 }

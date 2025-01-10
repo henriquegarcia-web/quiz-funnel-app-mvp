@@ -9,7 +9,7 @@ import React, {
 
 import { toast } from 'react-toastify'
 
-import { useAdminAuth } from '@/contexts/AdminAuthProvider'
+import { useUserAuth } from '@/contexts/UserAuthProvider'
 import { EDITORV1_NAVIGATION_ITEMS, IEditorNavItem } from '@/data/admin'
 import { IFunnel, IFunnelStep } from '@/data/mock'
 import { StepEditorType } from '@/components/editorV1/StepEditor'
@@ -36,7 +36,7 @@ export const EditorV1Context = createContext<IEditorV1ContextData>(
 
 const EditorV1Provider = ({ children }: { children: React.ReactNode }) => {
   // ========================================================================
-  // const { adminAccountData } = useAdminAuth()
+  // const { adminAccountData } = useUserAuth()
 
   const [editorActiveView, setEditorActiveView] = useState(
     EDITORV1_NAVIGATION_ITEMS[0]
