@@ -35,7 +35,7 @@ export const UserWelcome = styled(Text)`
   }
 `
 
-export const UserRole = styled(Tag)`
+export const UserPlan = styled(Tag)`
   height: 16px;
   margin: 0;
   padding: 0 4px;

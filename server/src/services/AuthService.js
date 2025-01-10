@@ -64,7 +64,7 @@ export const handleRegisterUser = async (userData) => {
       { expiresIn: authConfig.jwtExpiresIn }
     )
 
-    return { user: savedUser, token }
+    return { user: formatUser(savedUser), token }
   } catch (error) {
     throw new AuthError(
       'REGISTRATION_ERROR',

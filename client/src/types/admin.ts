@@ -43,6 +43,7 @@ export interface IUserSubscription {
 export interface IUserAccountData {
   id: string
   personalInfo: {
+    cpf: string
     firstName: string
     lastName: string
     dateOfBirth: string
@@ -70,6 +71,7 @@ export interface IRegisterAccessService {
 export interface IRegisterService {
   firstName: string
   lastName: string
+  cpf: string
   dateOfBirth: Date
   gender: GendersType
   email: string
@@ -102,13 +104,31 @@ export const SignUpSchema = Yup.object().shape({
     dateOfBirth: Yup.date().required('Data de nascimento é obrigatória'),
     gender: Yup.mixed<GendersType>()
       .oneOf(['male', 'female', 'other', 'prefer_not_to_say'])
-      .required('Gênero é obrigatório')
+      .required('Gênero é obrigatório'),
+    cpf: Yup.string()
+      .required('CPF é obrigatório')
+      .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF no formato inválido') // Para a máscara
+      .test(
+        'only-digits',
+        'O CPF deve ter exatamente 11 dígitos',
+        (value) => !!value && value.replace(/\D/g, '').length === 11
+      )
   }),
   contactInfo: Yup.object().shape({
     email: Yup.string()
       .email('E-mail inválido')
       .required('E-mail é obrigatório'),
-    phone: Yup.string().optional(),
+    phone: Yup.string()
+      .required('Telefone é obrigatório')
+      .matches(
+        /^\(\d{2}\)\s\d{1}\s\d{4}-\d{4}$/,
+        'Telefone no formato inválido'
+      ) // Para a máscara
+      .test(
+        'only-digits',
+        'O número de telefone deve ter exatamente 11 dígitos',
+        (value) => !!value && value.replace(/\D/g, '').length === 11
+      ),
     address: Yup.object()
       .shape({
         street: Yup.string().required('Rua é obrigatória'),
@@ -119,8 +139,12 @@ export const SignUpSchema = Yup.object().shape({
       })
       .optional()
   }),
-  password: Yup.string().required('Senha é obrigatória'),
-  confirmPassword: Yup.string().required('Confirmar senha é obrigatório')
+  password: Yup.string()
+    .min(8, 'A senha deve ter pelo menos 8 caracteres')
+    .required('Senha é obrigatória'),
+  confirmPassword: Yup.string()
+    .required('Confirmar a senha é obrigatório')
+    .oneOf([Yup.ref('password')], 'As senhas devem coincidir')
   // preferences: Yup.object().shape({
   //   preferredLanguage: Yup.mixed<LanguagesType>().oneOf(['pt-BR']).required('Idioma preferido é obrigatório'),
   //   theme: Yup.mixed<ThemeType>().oneOf(['dark', 'light']).required('Tema é obrigatório')

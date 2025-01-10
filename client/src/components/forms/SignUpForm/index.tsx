@@ -22,6 +22,7 @@ dayjs.locale('pt-br')
 import { useUserAuth } from '@/contexts/UserAuthProvider'
 import { SignUpSchema, ISignUpFormData } from '@/types/admin'
 import { ChangeAuthMode } from '@/components'
+import { formatCPF, formatPhone } from '@/utils/functions/formatters'
 
 const { Option } = Select
 
@@ -33,7 +34,8 @@ const steps = [
       'personalInfo.firstName',
       'personalInfo.lastName',
       'personalInfo.dateOfBirth',
-      'personalInfo.gender'
+      'personalInfo.gender',
+      'personalInfo.cpf'
     ]
   },
   {
@@ -67,31 +69,33 @@ const SignUpForm = ({}: ISignUpForm) => {
 
   const [current, setCurrent] = useState(0)
 
-  const { control, handleSubmit, formState, watch } = useForm<ISignUpFormData>({
-    mode: 'onBlur',
-    resolver: yupResolver(SignUpSchema),
-    defaultValues: {
-      personalInfo: {
-        firstName: '',
-        lastName: ''
-        // dateOfBirth: null,
-        // gender: 'prefer_not_to_say'
-      },
-      contactInfo: {
-        email: '',
-        phone: '',
-        address: {
-          street: '',
-          city: '',
-          state: '',
-          postalCode: '',
-          country: ''
-        }
-      },
-      password: '',
-      confirmPassword: ''
-    }
-  })
+  const { control, handleSubmit, formState, watch, setValue } =
+    useForm<ISignUpFormData>({
+      mode: 'onBlur',
+      resolver: yupResolver(SignUpSchema),
+      defaultValues: {
+        personalInfo: {
+          cpf: '',
+          firstName: '',
+          lastName: ''
+          // dateOfBirth: null,
+          // gender: 'prefer_not_to_say',
+        },
+        contactInfo: {
+          email: '',
+          phone: '',
+          address: {
+            street: '',
+            city: '',
+            state: '',
+            postalCode: '',
+            country: ''
+          }
+        },
+        password: '',
+        confirmPassword: ''
+      }
+    })
 
   const { errors, isSubmitting, isValid } = formState
 
@@ -99,15 +103,19 @@ const SignUpForm = ({}: ISignUpForm) => {
   const formValues = watch()
 
   const onSubmit = async (data: ISignUpFormData) => {
+    const formattedPhone = data.contactInfo.phone.replace(/\D/g, '')
+    const formattedCPF = data.personalInfo.cpf.replace(/\D/g, '')
+
     const success = await handleRegister({
       firstName: data.personalInfo.firstName,
       lastName: data.personalInfo.lastName,
       dateOfBirth: data.personalInfo.dateOfBirth,
       gender: data.personalInfo.gender,
       email: data.contactInfo.email,
-      phone: data.contactInfo.phone!,
+      phone: formattedPhone,
       address: data.contactInfo.address!,
-      password: data.password
+      password: data.password,
+      cpf: formattedCPF
     })
 
     if (success) {
@@ -215,6 +223,25 @@ const SignUpForm = ({}: ISignUpForm) => {
                 </Form.Item>
               )}
             />
+            <Controller
+              name="personalInfo.cpf"
+              control={control}
+              render={({ field }) => (
+                <Form.Item
+                  label="CPF"
+                  validateStatus={errors.personalInfo?.cpf ? 'error' : ''}
+                  help={errors.personalInfo?.cpf?.message}
+                >
+                  <Input
+                    {...field}
+                    placeholder="Digite seu CPF"
+                    onChange={(e) =>
+                      setValue('personalInfo.cpf', formatCPF(e.target.value))
+                    }
+                  />
+                </Form.Item>
+              )}
+            />
           </>
         )}
 
@@ -242,7 +269,13 @@ const SignUpForm = ({}: ISignUpForm) => {
                   validateStatus={errors.contactInfo?.phone ? 'error' : ''}
                   help={errors.contactInfo?.phone?.message}
                 >
-                  <Input {...field} placeholder="Digite seu telefone" />
+                  <Input
+                    {...field}
+                    placeholder="Digite seu telefone"
+                    onChange={(e) =>
+                      setValue('contactInfo.phone', formatPhone(e.target.value))
+                    }
+                  />
                 </Form.Item>
               )}
             />

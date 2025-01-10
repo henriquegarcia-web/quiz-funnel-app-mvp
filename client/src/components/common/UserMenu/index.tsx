@@ -49,9 +49,9 @@ const UserMenu = ({}: IUserMenu) => {
             )}
           </S.UserWelcome>
           {userAccountData && (
-            <S.UserRole color={roleDetails?.color}>
-              {roleDetails?.label}
-            </S.UserRole>
+            <S.UserPlan color="#007BFF">
+              {userAccountData?.subscription?.planName}
+            </S.UserPlan>
           )}
         </S.UserMenuInfos>
 

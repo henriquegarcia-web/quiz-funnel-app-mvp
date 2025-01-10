@@ -94,28 +94,28 @@ const ADMIN_SIDE_MENU_ITEMS: IMenu[] = [
 
 const ADMIN_MENU_ITEMS: IMenu[] = [
   {
-    menuKey: 'admin_my_account',
+    menuKey: 'user_my_account',
     menuLabel: 'Minha Conta',
     menuIcon: <LuCircleUser />,
     menuDisabled: false,
     menuComponent: <MyAccount />
   },
   {
-    menuKey: 'admin_settings',
+    menuKey: 'user_settings',
     menuLabel: 'Configurações',
     menuIcon: <LuSettings />,
     menuDisabled: true,
     menuComponent: <></>
   },
   {
-    menuKey: 'admin_billings',
+    menuKey: 'user_billings',
     menuLabel: 'Pagamentos',
     menuIcon: <LuCircleDollarSign />,
     menuDisabled: true,
     menuComponent: <></>
   },
   {
-    menuKey: 'admin_exit',
+    menuKey: 'user_exit',
     menuLabel: 'Sair',
     menuIcon: createElement(LuLogOut),
     menuDisabled: false,

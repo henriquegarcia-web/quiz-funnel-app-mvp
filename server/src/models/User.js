@@ -32,7 +32,7 @@ const UserSchema = new Schema({
   // Preferências de Usuário
   preferences: {
     preferredLanguage: { type: String, enum: ['pt-BR'], default: 'pt-BR' },
-    theme: { type: String, enum: ['light', 'dark'], default: 'light' }
+    theme: { type: String, enum: ['light', 'dark'], default: 'dark' }
   },
 
   // Dados de Assinatura
