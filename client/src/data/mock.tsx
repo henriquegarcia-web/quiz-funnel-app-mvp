@@ -122,7 +122,7 @@ export interface IFunnelStepQuestion extends IFunnelStepBase {
 }
 
 export interface IFunnelStepLeadCapture extends IFunnelStepBase {
-  stepType: 'leadCapture' 
+  stepType: 'leadCapture'
 }
 
 export interface IFunnelStepCustom extends IFunnelStepBase {
@@ -130,8 +130,10 @@ export interface IFunnelStepCustom extends IFunnelStepBase {
   customComponents: IComponent[]
 }
 
-export type IFunnelStep = IFunnelStepQuestion | IFunnelStepLeadCapture | IFunnelStepCustom
-
+export type IFunnelStep =
+  | IFunnelStepQuestion
+  | IFunnelStepLeadCapture
+  | IFunnelStepCustom
 
 export interface IFunnelAnalytics {
   totalResponses: number
@@ -144,9 +146,19 @@ export interface IFunnel {
   funnelDesign: IFunnelDesign
   funnelSteps: IFunnelStep[]
   funnelAnalytics: IFunnelAnalytics
+  createdBy: string
   createdAt: string
   lastEditionAt: string
 }
+
+// ========================================================
+
+export interface IFunnelService {
+  funnelName: string
+  funnelDescription: string
+}
+
+// ========================================================
 
 export const MOCK_FUNNELS_LIST: IFunnel[] = [
   {
@@ -311,11 +323,12 @@ export const MOCK_FUNNELS_LIST: IFunnel[] = [
     funnelAnalytics: {
       totalResponses: 0,
       progressByStep: {
-        step_intro: true,
-        step_questions: true,
-        step_result: true
+        step_intro: 0,
+        step_questions: 0,
+        step_result: 0
       }
     },
+    createdBy: '',
     createdAt: '15 de dezembro de 2024',
     lastEditionAt: '20/12/2024'
   }

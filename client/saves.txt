@@ -1,0 +1,117 @@
+SERVIÇO:
+
+const fetchUsersProfiles = async () => {
+  try {
+    const response = await api.get('/user/profiles')
+    return response.data
+  } catch (error: any) {
+    throw error.response?.data || error
+  }
+}
+
+const deleteUser = async (userId: string) => {
+  try {
+    const response = await api.delete(`/user/delete/${userId}`)
+    return response.data
+  } catch (error: any) {
+    throw error.response?.data || error
+  }
+}
+
+const toggleUserBlock = async (userId: string, blockStatus: boolean) => {
+  try {
+    const response = await api.put(`/user/block/${userId}`, { blockStatus })
+    return response.data
+  } catch (error: any) {
+    throw error.response?.data || error
+  }
+}
+
+
+HOOK:
+
+const useAllUsersProfile = (isUserLogged: boolean) => {
+  return useQuery<IUserAccountData[]>({
+    queryKey: ['usersProfiles'],
+    queryFn: async () => {
+      const users = await fetchUsersProfiles()
+      return users
+    },
+    enabled: isUserLogged
+  })
+}
+
+const useDeleteUser = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (data: { userId: string }) => deleteUser(data.userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['usersProfiles'] })
+    }
+  })
+}
+
+const useToggleUserBlock = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (data: { userId: string; blockStatus: boolean }) =>
+      toggleUserBlock(data.userId, data.blockStatus),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['usersProfiles'] })
+    }
+  })
+}
+
+CONTEXTO:
+
+handleDeleteUser: (userId: string) => Promise<void>
+handleToggleUserBlock: (userId: string, blockStatus: boolean) => Promise<void>
+ 
+
+const { mutateAsync: deleteUser } = useDeleteUser()
+const { mutateAsync: toggleUserBlock } = useToggleUserBlock()
+
+
+const handleDeleteUser = async (userId: string) => {
+    if (userId === userAccountData?.id) {
+      toast('Você não pode deletar sua própria conta')
+      return
+    }
+
+    try {
+      setOperationsLoading(true)
+      await deleteUser({ userId })
+      queryClient.invalidateQueries({ queryKey: ['usersProfiles'] })
+      toast('Usuário deletado com sucesso')
+    } catch (error: any) {
+      console.error('Falha ao deletar usuário', error)
+      toast(error.message || 'Erro ao deletar usuário')
+    } finally {
+      setOperationsLoading(false)
+    }
+  }
+
+  const handleToggleUserBlock = async (
+    userId: string,
+    blockStatus: boolean
+  ) => {
+    if (userId === userAccountData?.id) {
+      toast('Você não pode alterar o status de bloqueio da sua própria conta')
+      return
+    }
+
+    try {
+      setOperationsLoading(true)
+      await toggleUserBlock({ userId, blockStatus })
+      queryClient.invalidateQueries({ queryKey: ['usersProfiles'] })
+      const action = blockStatus ? 'bloqueado' : 'desbloqueado'
+      toast(`Usuário ${action} com sucesso`)
+    } catch (error: any) {
+      console.error('Falha ao alterar status de bloqueio do usuário', error)
+      toast(error.message || 'Erro ao alterar status de bloqueio do usuário')
+    } finally {
+      setOperationsLoading(false)
+    }
+  }

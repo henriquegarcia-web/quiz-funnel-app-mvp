@@ -6,17 +6,14 @@ import React, {
   useState
 } from 'react'
 
-import { toast } from 'react-toastify'
 import { useQueryClient } from '@tanstack/react-query'
 
-import {
-  useUserProfile,
-  useAllUsersProfile,
-  useDeleteUser,
-  useToggleUserBlock
-} from '@/hooks/data/useUser'
 import { useUserAuth } from '@/contexts/UserAuthProvider'
 import { ADMIN_SIDE_MENU_ITEMS, ADMIN_MENU_ITEMS, IMenu } from '@/data/admin'
+import { useCreateQuiz, useUserQuizzes } from '@/hooks/data/useQuiz'
+import { IFunnel, IFunnelService } from '@/data/mock'
+import { deleteQuiz } from '@/services/quiz'
+import { message } from 'antd'
 
 // ------------------------------------------------------------------------
 
@@ -25,9 +22,14 @@ export type ThemeType = 'dark' | 'light'
 interface IUserContextData {
   isOperationsLoading: boolean
   activeMenu: IMenu | null
-  handleDeleteUser: (userId: string) => Promise<void>
-  handleToggleUserBlock: (userId: string, blockStatus: boolean) => Promise<void>
+  quizzesData: {
+    data: IFunnel[] | undefined
+    isLoading: boolean
+    error: Error | null
+  }
   handleMenuClick: (menu: IMenu | null) => void
+  handleCreateQuiz: (quizData: IFunnelService) => Promise<IFunnel | null>
+  handleDeleteQuiz: (quizId: string) => Promise<boolean>
 }
 
 // ------------------------------------------------------------------------
@@ -38,7 +40,7 @@ export const UserContext = createContext<IUserContextData>(
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   // ========================================================================
-  const { userAccountData } = useUserAuth()
+  const { isUserLogged, userAccountData } = useUserAuth()
   const queryClient = useQueryClient()
 
   const [isOperationsLoading, setOperationsLoading] = useState<boolean>(false)
@@ -46,8 +48,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     ADMIN_SIDE_MENU_ITEMS[0]
   )
 
-  const { mutateAsync: deleteUser } = useDeleteUser()
-  const { mutateAsync: toggleUserBlock } = useToggleUserBlock()
+  const quizzesData = useUserQuizzes(isUserLogged)
+  const { mutateAsync: createQuiz } = useCreateQuiz()
 
   // ============================================= SIDE MENU FUNCTIONS
 
@@ -55,49 +57,41 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setActiveMenu(menu || null)
   }
 
-  // ============================================= USER ACCESS FUNCTIONS
+  // ============================================= QUIZ FUNCTIONS
 
-  const handleDeleteUser = async (userId: string) => {
-    if (userId === userAccountData?.id) {
-      toast('Você não pode deletar sua própria conta')
-      return
-    }
-
+  // Função de Criar Quiz
+  const handleCreateQuiz = async (quizData: IFunnelService) => {
     try {
       setOperationsLoading(true)
-      await deleteUser({ userId })
-      queryClient.invalidateQueries({ queryKey: ['usersProfiles'] })
-      toast('Usuário deletado com sucesso')
+      const response = await createQuiz(quizData)
+      message.success('Quiz criado com sucesso!')
+      return response
     } catch (error: any) {
-      console.error('Falha ao deletar usuário', error)
-      toast(error.message || 'Erro ao deletar usuário')
+      message.error('Falha ao criar o Quiz, tente novamente.')
+      return null
     } finally {
       setOperationsLoading(false)
     }
   }
 
-  const handleToggleUserBlock = async (
-    userId: string,
-    blockStatus: boolean
-  ) => {
-    if (userId === userAccountData?.id) {
-      toast('Você não pode alterar o status de bloqueio da sua própria conta')
-      return
-    }
-
+  // Função de Deletar Quiz
+  const handleDeleteQuiz = async (quizId: string) => {
     try {
       setOperationsLoading(true)
-      await toggleUserBlock({ userId, blockStatus })
-      queryClient.invalidateQueries({ queryKey: ['usersProfiles'] })
-      const action = blockStatus ? 'bloqueado' : 'desbloqueado'
-      toast(`Usuário ${action} com sucesso`)
+      const response = await deleteQuiz(quizId)
+      message.success('Quiz deletado com sucesso!')
+      return response
     } catch (error: any) {
-      console.error('Falha ao alterar status de bloqueio do usuário', error)
-      toast(error.message || 'Erro ao alterar status de bloqueio do usuário')
+      message.error('Falha ao deletar o Quiz, tente novamente.')
+      return null
     } finally {
       setOperationsLoading(false)
     }
   }
+
+  // useEffect(() => {
+  //   console.log(quizzesData.data)
+  // }, [quizzesData])
 
   // ========================================================================
 
@@ -105,11 +99,16 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     return {
       isOperationsLoading,
       activeMenu,
-      handleDeleteUser,
-      handleToggleUserBlock,
-      handleMenuClick // Agora o tipo está consistente com IUserContextData
+      quizzesData: {
+        data: quizzesData.data,
+        isLoading: quizzesData.isLoading,
+        error: quizzesData.error
+      },
+      handleMenuClick,
+      handleCreateQuiz,
+      handleDeleteQuiz
     }
-  }, [isOperationsLoading, activeMenu])
+  }, [isOperationsLoading, activeMenu, quizzesData])
 
   return (
     <UserContext.Provider value={UserContextData}>

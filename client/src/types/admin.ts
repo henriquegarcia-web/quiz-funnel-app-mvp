@@ -145,28 +145,6 @@ export const SignUpSchema = Yup.object().shape({
   confirmPassword: Yup.string()
     .required('Confirmar a senha é obrigatório')
     .oneOf([Yup.ref('password')], 'As senhas devem coincidir')
-  // preferences: Yup.object().shape({
-  //   preferredLanguage: Yup.mixed<LanguagesType>().oneOf(['pt-BR']).required('Idioma preferido é obrigatório'),
-  //   theme: Yup.mixed<ThemeType>().oneOf(['dark', 'light']).required('Tema é obrigatório')
-  // }),
-  // subscription: Yup.object().shape({
-  //   planId: Yup.string().required('ID do plano é obrigatório'),
-  //   planName: Yup.string().required('Nome do plano é obrigatório'),
-  //   startDate: Yup.date().required('Data de início é obrigatória'),
-  //   endDate: Yup.date().required('Data de término é obrigatória'),
-  //   status: Yup.mixed<SubscriptionStatusType>().oneOf(['active', 'inactive', 'cancelled']).required('Status da assinatura é obrigatório'),
-  //   paymentHistory: Yup.array().of(
-  //     Yup.object().shape({
-  //       paymentId: Yup.string().required('ID do pagamento é obrigatório'),
-  //       date: Yup.date().required('Data do pagamento é obrigatória'),
-  //       amount: Yup.number().required('Valor é obrigatório'),
-  //       currency: Yup.string().required('Moeda é obrigatória'),
-  //       status: Yup.mixed<PaymentStatusType>().oneOf(['paid', 'pending', 'failed']).required('Status do pagamento é obrigatório')
-  //     })
-  //   ).required('Histórico de pagamentos é obrigatório')
-  // }),
-  // blocked: Yup.boolean().required('Status de bloqueio é obrigatório'),
-  // role: Yup.mixed<RolesType>().oneOf(['user', 'admin', 'developer']).required('Papel é obrigatório'),
 })
 
 export type ISignUpFormData = Yup.InferType<typeof SignUpSchema>
@@ -174,7 +152,8 @@ export type ISignUpFormData = Yup.InferType<typeof SignUpSchema>
 // =============================================== FUNNEL
 
 export const CreateFunnelSchema = Yup.object().shape({
-  funnelName: Yup.string().required('Título do funil é obrigatório')
+  funnelName: Yup.string().required('Título do funil é obrigatório'),
+  funnelDescription: Yup.string().required('Descrição do funil é obrigatória')
 })
 
 export type ICreateFunnelFormData = Yup.InferType<typeof CreateFunnelSchema>
@@ -287,3 +266,26 @@ export const FunnelSettingsSchema_Seo = Yup.object().shape({
 export type IFunnelSettingsFormData_Seo = Yup.InferType<
   typeof FunnelSettingsSchema_Seo
 >
+
+// preferences: Yup.object().shape({
+//   preferredLanguage: Yup.mixed<LanguagesType>().oneOf(['pt-BR']).required('Idioma preferido é obrigatório'),
+//   theme: Yup.mixed<ThemeType>().oneOf(['dark', 'light']).required('Tema é obrigatório')
+// }),
+// subscription: Yup.object().shape({
+//   planId: Yup.string().required('ID do plano é obrigatório'),
+//   planName: Yup.string().required('Nome do plano é obrigatório'),
+//   startDate: Yup.date().required('Data de início é obrigatória'),
+//   endDate: Yup.date().required('Data de término é obrigatória'),
+//   status: Yup.mixed<SubscriptionStatusType>().oneOf(['active', 'inactive', 'cancelled']).required('Status da assinatura é obrigatório'),
+//   paymentHistory: Yup.array().of(
+//     Yup.object().shape({
+//       paymentId: Yup.string().required('ID do pagamento é obrigatório'),
+//       date: Yup.date().required('Data do pagamento é obrigatória'),
+//       amount: Yup.number().required('Valor é obrigatório'),
+//       currency: Yup.string().required('Moeda é obrigatória'),
+//       status: Yup.mixed<PaymentStatusType>().oneOf(['paid', 'pending', 'failed']).required('Status do pagamento é obrigatório')
+//     })
+//   ).required('Histórico de pagamentos é obrigatório')
+// }),
+// blocked: Yup.boolean().required('Status de bloqueio é obrigatório'),
+// role: Yup.mixed<RolesType>().oneOf(['user', 'admin', 'developer']).required('Papel é obrigatório'),

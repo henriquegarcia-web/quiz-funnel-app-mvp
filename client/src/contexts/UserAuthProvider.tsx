@@ -7,11 +7,11 @@ import React, {
 } from 'react'
 
 import { jwtDecode } from 'jwt-decode'
-import { toast } from 'react-toastify'
 
 import { useRegister, useLogin } from '@/hooks/data/useAuth'
 import { verifyToken } from '@/services/auth'
 import { IUserAccountData, IRegisterService } from '@/types/admin'
+import { message } from 'antd'
 
 // ------------------------------------------------------------------------
 
@@ -65,9 +65,10 @@ const UserAuthProvider = ({ children }: { children: React.ReactNode }) => {
       )
       setToken(token)
       setIsUserLogged(true)
+      message.success('Seja bem-vindo!')
       return true
     } catch (error: any) {
-      toast(error.message)
+      message.error('Falha na tentativa de login. Por favor, tente novamente.')
       return false
     }
   }
@@ -93,10 +94,10 @@ const UserAuthProvider = ({ children }: { children: React.ReactNode }) => {
       )
       setToken(token)
       setIsUserLogged(true)
-      toast('Sucesso! Seja bem-vindo')
+      message.success('Sucesso! Seja bem-vindo')
       return true
     } catch (error: any) {
-      toast(error.message)
+      message.error('Falha na tentativa de cadastro. Por favor, tente novamente.')
       return false
     }
   }

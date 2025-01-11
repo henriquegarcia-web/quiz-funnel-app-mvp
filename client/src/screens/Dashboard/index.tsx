@@ -9,10 +9,6 @@ interface IDashboardScreen {}
 const DashboardScreen = ({}: IDashboardScreen) => {
   const { activeMenu } = useUser()
 
-  useEffect(() => {
-    console.log(activeMenu)
-  }, [activeMenu])
-
   return (
     <S.DashboardScreen>
       <DashboardHeader />

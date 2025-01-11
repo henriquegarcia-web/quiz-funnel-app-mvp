@@ -105,7 +105,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .ant-input-number, .ant-input-number-group-wrapper {
-    width: 100% !important;
+    width: 100% !i\mportant;
   }
 
   .ant-btn {
@@ -154,6 +154,27 @@ const GlobalStyle = createGlobalStyle`
           }
         }
       }
+    }
+  }
+
+  .ant-popover-content {
+    max-width: 300px;
+
+    svg {
+      font-size: ${Fonts.large};
+    }
+
+    .ant-popconfirm-title {
+      display: flex;
+      align-items: center;
+      height: 18px;
+      font-size: ${Fonts.small};
+      line-height:  ${Fonts.small};
+    }
+
+    .ant-popconfirm-description {
+      font-size: ${Fonts.xs};
+      line-height:  ${Fonts.large};
     }
   }
 `

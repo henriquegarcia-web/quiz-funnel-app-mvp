@@ -49,6 +49,15 @@ export const Container = styled.div`
   /* border: 1px solid ${() => useToken().token.colorBorder}; */
 `
 
+export const EmptyContainer = styled.div`
+  transition: 0.2s;
+  border-radius: ${Global.radius.container};
+
+  /* background-color: ${() => useToken().token.colorBgBase}; */
+  border: 1px solid ${() => useToken().token.colorBorder};
+  color: ${() => useToken().token.colorTextDisabled};
+`
+
 export const Card = styled.div`
   transition: 0.2s;
   border-radius: ${Global.radius.card};

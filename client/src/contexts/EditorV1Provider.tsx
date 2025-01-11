@@ -7,8 +7,6 @@ import React, {
   useState
 } from 'react'
 
-import { toast } from 'react-toastify'
-
 import { useUserAuth } from '@/contexts/UserAuthProvider'
 import { EDITORV1_NAVIGATION_ITEMS, IEditorNavItem } from '@/data/admin'
 import { IFunnel, IFunnelStep } from '@/data/mock'

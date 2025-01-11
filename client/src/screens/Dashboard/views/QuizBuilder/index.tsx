@@ -3,11 +3,13 @@ import * as S from './styles'
 
 import { Button, Modal } from 'antd'
 import { CreateFunnelForm, FunnelItem, ViewHeader } from '@/components'
-import { MOCK_FUNNELS_LIST } from '@/data/mock'
+import { useUser } from '@/contexts/UserProvider'
 
 interface IQuizBuilder {}
 
 const QuizBuilder = ({}: IQuizBuilder) => {
+  const { quizzesData } = useUser()
+
   const [isCreateFunnelModalOpen, setIsCreateFunnelModalOpen] = useState(false)
 
   const handleOpenCreateFunnelModal: any = () =>
@@ -27,9 +29,18 @@ const QuizBuilder = ({}: IQuizBuilder) => {
           </Button>
         </ViewHeader>
         <S.UserQuizzesList>
-          {MOCK_FUNNELS_LIST.map((funnel) => (
-            <FunnelItem key={funnel.funnelId} funnel={funnel} />
-          ))}
+          {!!quizzesData?.data && quizzesData?.data?.length > 0 ? (
+            <>
+              {quizzesData?.data?.map((funnel) => (
+                <FunnelItem key={funnel.funnelId} funnel={funnel} />
+              ))}
+            </>
+          ) : (
+            <S.UserQuizzesListEmpty>
+              Você ainda não possui um funil, crie um clicando no botão "Criar
+              Quiz" acima.
+            </S.UserQuizzesListEmpty>
+          )}
         </S.UserQuizzesList>
       </S.QuizBuilder>
 

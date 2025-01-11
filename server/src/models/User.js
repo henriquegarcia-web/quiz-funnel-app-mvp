@@ -6,6 +6,7 @@ const { Schema } = mongoose
 const UserSchema = new Schema({
   // Informações Pessoais
   personalInfo: {
+    cpf: { type: String, required: true, unique: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     dateOfBirth: { type: Date, required: true },

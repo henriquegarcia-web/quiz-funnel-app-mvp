@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
+import { EmptyContainer } from '@/utils/styles/common'
 import Fonts from '@/utils/styles/fonts'
-import { Global } from '@/utils/styles/globals'
 
 export const QuizBuilder = styled.div`
   display: flex;
@@ -15,4 +15,17 @@ export const UserQuizzesList = styled.div`
   flex-direction: column;
   row-gap: 10px;
   width: 100%;
+`
+
+export const UserQuizzesListEmpty = styled(EmptyContainer)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  width: 100%;
+  height: fit-content;
+
+  font-size: ${Fonts.xxs};
+  line-height: ${Fonts.xxs};
+  font-weight: 300;
 `

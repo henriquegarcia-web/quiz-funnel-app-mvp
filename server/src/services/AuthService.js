@@ -38,6 +38,7 @@ export const handleRegisterUser = async (userData) => {
 
     const newUser = new User({
       personalInfo: {
+        cpf: userData.cpf,
         firstName: userData.firstName,
         lastName: userData.lastName,
         dateOfBirth: userData.dateOfBirth,

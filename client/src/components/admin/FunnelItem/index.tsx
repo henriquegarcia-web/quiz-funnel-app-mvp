@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 
-import { Button, Tooltip } from 'antd'
+import { Button, message, Popconfirm, Tooltip } from 'antd'
 import {
   LuPencilRuler,
   LuTrash2,
   LuPlay,
   LuChartNoAxesCombined
 } from 'react-icons/lu'
-
 import { IFunnel } from '@/data/mock'
+import type { PopconfirmProps } from 'antd'
+import { useUser } from '@/contexts/UserProvider'
 
 interface IFunnelItem {
   funnel: IFunnel
@@ -17,6 +18,12 @@ interface IFunnelItem {
 
 const FunnelItem = ({ funnel }: IFunnelItem) => {
   const navigate = useNavigate()
+
+  const { isOperationsLoading, handleDeleteQuiz } = useUser()
+
+  const confirm: PopconfirmProps['onConfirm'] = async () => {
+    const response = await handleDeleteQuiz(funnel.funnelId)
+  }
 
   return (
     <S.FunnelItem>
@@ -27,7 +34,8 @@ const FunnelItem = ({ funnel }: IFunnelItem) => {
       <S.FunnelItemCtas>
         <Tooltip placement="bottomRight" title="Visualizar">
           <Button
-            disabled={!funnel.funnelSettings.general.funnelIsPublished}
+            // disabled={!funnel.funnelSettings.general.funnelIsPublished}
+            disabled
             icon={<LuPlay />}
             onClick={() => {}}
           />
@@ -35,18 +43,27 @@ const FunnelItem = ({ funnel }: IFunnelItem) => {
         <Tooltip placement="bottomRight" title="Editar">
           <Button
             icon={<LuPencilRuler />}
-            onClick={() =>
-              navigate(
-                `/admin/editor/${funnel.funnelSettings.general.funnelSlug}`
-              )
-            }
+            onClick={() => navigate(`/admin/editor/${funnel.funnelId}`)}
           />
         </Tooltip>
         <Tooltip placement="bottomRight" title="Insights">
-          <Button icon={<LuChartNoAxesCombined />} onClick={() => {}} />
+          <Button
+            disabled
+            icon={<LuChartNoAxesCombined />}
+            onClick={() => {}}
+          />
         </Tooltip>
         <Tooltip placement="bottomRight" title="Deletar">
-          <Button icon={<LuTrash2 />} onClick={() => {}} />
+          <Popconfirm
+            title="Deletar?"
+            description="Tem certeza que deseja deletar esse quiz? Essa ação não poderá ser desfeita."
+            onConfirm={confirm}
+            okText="Sim"
+            cancelText="Cancelar"
+            okButtonProps={{ loading: isOperationsLoading }}
+          >
+            <Button icon={<LuTrash2 />} />
+          </Popconfirm>
         </Tooltip>
       </S.FunnelItemCtas>
     </S.FunnelItem>
