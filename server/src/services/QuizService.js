@@ -10,6 +10,11 @@ const formatQuiz = (quiz) => {
   }
 }
 
+export const validateFunnelAccess = async (funnelId, userId) => {
+  const funnel = await Quiz.findOne({ _id: funnelId, createdBy: userId })
+  return formatQuiz(funnel)
+}
+
 export const createQuiz = async (quizData) => {
   const { funnelName, funnelDescription, userId } = quizData
   const funnelSlug = slugify(funnelName, { lower: true })

@@ -1,3 +1,5 @@
+// Routes.tsx
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import {
@@ -79,7 +81,7 @@ const AppRoutes = () => {
         />
 
         <Route
-          path="/admin/editor/:funnelSlug"
+          path="/admin/editor/:funnelId"
           element={
             <PrivateRoute isAuthenticated={isUserLogged}>
               <EditorV1 />

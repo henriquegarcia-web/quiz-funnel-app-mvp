@@ -57,6 +57,16 @@ export const handleRegisterUser = async (userData) => {
 
     const savedUser = await newUser.save()
 
+    // const token = jwt.sign(
+    //   {
+    //     id: savedUser._id,
+    //     email: savedUser.contactInfo.email,
+    //     name: `${savedUser.personalInfo.firstName} ${savedUser.personalInfo.lastName}`
+    //   },
+    //   authConfig.jwtSecret,
+    //   { expiresIn: authConfig.jwtExpiresIn }
+    // )
+
     const token = jwt.sign(
       {
         id: savedUser._id,
@@ -64,7 +74,12 @@ export const handleRegisterUser = async (userData) => {
         name: `${savedUser.personalInfo.firstName} ${savedUser.personalInfo.lastName}`
       },
       authConfig.jwtSecret,
-      { expiresIn: authConfig.jwtExpiresIn }
+      {
+        expiresIn: authConfig.jwtExpiresIn,
+        algorithm: authConfig.jwtAlgorithm
+        // issuer: authConfig.jwtIssuer,
+        // audience: authConfig.jwtAudience
+      }
     )
 
     return { user: formatUser(savedUser), token }
@@ -93,6 +108,16 @@ export const handleLoginUser = async ({ email, password }) => {
 
   const formattedUser = formatUser(user)
 
+  // const token = jwt.sign(
+  //   {
+  //     id: user._id,
+  //     email: user.contactInfo.email,
+  //     name: `${user.personalInfo.firstName} ${user.personalInfo.lastName}`
+  //   },
+  //   authConfig.jwtSecret,
+  //   { expiresIn: authConfig.jwtExpiresIn }
+  // )
+
   const token = jwt.sign(
     {
       id: user._id,
@@ -100,7 +125,12 @@ export const handleLoginUser = async ({ email, password }) => {
       name: `${user.personalInfo.firstName} ${user.personalInfo.lastName}`
     },
     authConfig.jwtSecret,
-    { expiresIn: authConfig.jwtExpiresIn }
+    {
+      expiresIn: authConfig.jwtExpiresIn
+      // algorithm: authConfig.jwtAlgorithm
+      // issuer: authConfig.jwtIssuer,
+      // audience: authConfig.jwtAudience
+    }
   )
 
   return { user: formattedUser, token }
