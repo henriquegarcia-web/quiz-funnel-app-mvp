@@ -1,3 +1,5 @@
+// app.js
+
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
@@ -9,19 +11,6 @@ const allowedOrigins = [
   'http://localhost:5173',
   process.env.PRODUCTION_CLIENT_URL
 ]
-
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Bloqueado pelo CORS'))
-//     }
-//   },
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//   credentials: true,
-//   optionsSuccessStatus: 200
-// }
 
 const corsOptions = {
   origin: (origin, callback) => {

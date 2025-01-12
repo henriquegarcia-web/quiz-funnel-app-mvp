@@ -32,5 +32,4 @@ export const DashboardViewWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: ${Global.wrapper.dashboard};
-  padding-top: 15px;
 `

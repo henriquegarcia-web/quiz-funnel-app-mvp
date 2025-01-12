@@ -1,3 +1,5 @@
+// services/user.ts
+
 import api from '@/lib/fetch'
 
 const fetchUserProfile = async (userId: string) => {
@@ -9,5 +11,4 @@ const fetchUserProfile = async (userId: string) => {
   }
 }
 
-
-export { fetchUserProfile,  }
+export { fetchUserProfile }

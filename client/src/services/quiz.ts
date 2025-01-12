@@ -1,3 +1,5 @@
+// services/quiz.ts
+
 import api from '@/lib/fetch'
 import { IFunnel, IFunnelService } from '@/data/mock'
 

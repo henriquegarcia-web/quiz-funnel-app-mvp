@@ -1,3 +1,5 @@
+// services/UserService.js
+
 import User from '../models/User.js'
 
 class AuthError extends Error {

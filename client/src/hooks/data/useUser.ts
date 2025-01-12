@@ -1,3 +1,5 @@
+// hooks/data/useUser.ts
+
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { fetchUserProfile } from '@/services/user'

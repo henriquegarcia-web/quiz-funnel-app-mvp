@@ -1,3 +1,5 @@
+// services/auth.ts
+
 import api from '@/lib/fetch'
 import { IRegisterService, ILoginService } from '@/types/admin'
 

@@ -1,3 +1,5 @@
+// routes/index.js
+
 import { Router } from 'express'
 
 import authRoutes from './AuthRoutes.js'

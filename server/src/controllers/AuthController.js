@@ -1,3 +1,5 @@
+// controllers/AuthController.js
+
 import jwt from 'jsonwebtoken'
 import {
   handleRegisterUser,

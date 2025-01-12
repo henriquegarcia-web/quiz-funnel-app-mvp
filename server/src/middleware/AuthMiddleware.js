@@ -1,3 +1,5 @@
+// middleware/AuthMiddleware.js
+
 import jwt from 'jsonwebtoken'
 import { authConfig } from '../config/auth.js'
 

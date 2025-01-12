@@ -1,3 +1,5 @@
+// services/AuthService.js
+
 // Atualizando handleRegisterUser em AuthService.js
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'

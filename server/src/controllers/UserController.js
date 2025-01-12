@@ -1,3 +1,5 @@
+// controllers/UserController.js
+
 import {
   handleRegisterUserAccess,
   handleGetUserProfile,

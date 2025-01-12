@@ -1,3 +1,5 @@
+// controllers/QuizController.js
+
 import {
   createQuiz,
   getUserQuizzes,

@@ -12,7 +12,9 @@ export const ViewHeader = styled.div`
   align-items: center;
   width: 100%;
   height: fit-content;
-  padding: 30px 0;
+  margin-bottom: 15px;
+  padding-top: 6px;
+  padding-bottom: 15px;
 `
 
 export const ViewHeaderLabels = styled(Text)`

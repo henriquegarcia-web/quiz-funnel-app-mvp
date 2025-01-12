@@ -13,6 +13,9 @@ const EditorV1 = ({}: IEditorV1) => {
   
   useEditorView(funnelSlug)
 
+  // Criar uma função que valida o slug/id no backend se o funil é do usário, 
+  // se sim retorna os dados do funil, se não retorna false e redireciona
+
   return (
     <S.EditorV1>
       <EditorV1Header />

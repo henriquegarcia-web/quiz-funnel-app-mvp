@@ -1,3 +1,5 @@
+// routes/AuthRoutes.js
+
 import { Router } from 'express'
 import {
   registerUser,
